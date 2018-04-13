@@ -1,0 +1,19 @@
+# use glob syntax.
+syntax: glob
+
+*.bat
+*.elc
+*.pyc
+*~
+*.log
+*.doctrees
+tmp
+docs/api/lino_noi.*
+docs/warnings_html.txt
+
+*.egg-info
+.build
+.coverage
+.coverage.*
+.eggs
+.cache
