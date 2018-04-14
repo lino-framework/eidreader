@@ -7,13 +7,16 @@ Changes in EIDReader
 Coming version
 ==============
 
-Version 0.0.4 (2018-04-14)
+Version 0.0.5 (2018-04-14)
 ==========================
 
-Trying to fix `#2
-<https://github.com/lino-framework/eidreader/issues/2>`__.
+POSTing the data to a web server failed because it was posting a
+nested dict. Changed the data format of output so that it is a simple
+dict.
 
+Some data fields were missing.
 
+# carddata_serialnumber
 Version 0.0.3 (2018-04-14)
 ==========================
 
