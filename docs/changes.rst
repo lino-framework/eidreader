@@ -7,6 +7,12 @@ Changes in EIDReader
 Coming version
 ==============
 
+Version 0.0.2 (2018-04-14)
+==========================
+
+Added a :file:`MANIFEST.in` file, hoping to fix
+`#1 <https://github.com/lino-framework/eidreader/issues/1>`__
+
 
 
 Version 0.0.1 (2018-04-13)

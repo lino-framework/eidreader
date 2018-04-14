@@ -1,0 +1,6 @@
+global-include *.txt *.py *.js *.css *.html \
+  *.ico  \
+  *.xml \
+  *.po *.mo
+prune docs
+prune .build
