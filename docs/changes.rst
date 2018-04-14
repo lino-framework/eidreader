@@ -7,6 +7,12 @@ Changes in EIDReader
 Coming version
 ==============
 
+Version 0.0.6 (2018-04-14)
+==========================
+
+Fixed encoding problem of the photo file data when posting to a web
+server.
+
 Version 0.0.5 (2018-04-14)
 ==========================
 

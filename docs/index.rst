@@ -1,10 +1,10 @@
 .. _eidreader:
 
 =========
-EIDReader
+eidreader
 =========
 
-Welcome to the *EIDReader* project page.
+Welcome to the *eidreader* project page.
 
 .. py2rst::
 
@@ -21,8 +21,6 @@ Content
    usage
    changes
    
-
-
 
 Thanks to Vincent Hardy (vincent.hardy.be@gmail.com)
   
