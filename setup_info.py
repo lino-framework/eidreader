@@ -1,6 +1,6 @@
 SETUP_INFO = dict(
     name='eidreader',
-    version='0.0.2',
+    version='0.0.3',
     install_requires=['requests', 'PyKCS11'],
     scripts=['eidreader.py'],
     description="Read data from Belgian eId card via command-line",
@@ -11,7 +11,7 @@ SETUP_INFO = dict(
 SETUP_INFO.update(long_description="""\
 
 eidreader is a command-line script which reads data from Belgian eID
-card and writes the data to stdout or posts it to a web server.
+cards and writes the data to stdout or posts it to a web server.
 
 - The central project homepage is
   http://eidreader.lino-framework.org

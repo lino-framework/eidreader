@@ -6,7 +6,7 @@ The ``eidreader`` package
 
 
 eidreader is a command-line script which reads data from Belgian eID
-card and writes the data to stdout or posts it to a web server.
+cards and writes the data to stdout or posts it to a web server.
 
 - The central project homepage is
   http://eidreader.lino-framework.org
