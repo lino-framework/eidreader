@@ -7,19 +7,27 @@ Changes in EIDReader
 Coming version
 ==============
 
+Version 0.0.4 (2018-04-14)
+==========================
+
+Trying to fix `#2
+<https://github.com/lino-framework/eidreader/issues/2>`__.
+
+
 Version 0.0.3 (2018-04-14)
 ==========================
 
 Added an explicit ``include setup_info.py`` to :file:`MANIFEST.in`
 file, hoping to fix `#2
-<https://github.com/lino-framework/eidreader/issues/2>`__
+<https://github.com/lino-framework/eidreader/issues/2>`__.
+(NB: problem was not fixed.
 
 
 Version 0.0.2 (2018-04-14)
 ==========================
 
 Added a :file:`MANIFEST.in` file, hoping to fix
-`#1 <https://github.com/lino-framework/eidreader/issues/1>`__
+`#1 <https://github.com/lino-framework/eidreader/issues/1>`__.
 
 
 

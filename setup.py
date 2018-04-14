@@ -1,5 +1,5 @@
 from setuptools import setup
-fn = 'setup_info.py'
+fn = 'eidreader/setup_info.py'
 # import os
 # fn = os.path.join(
 #     os.path.abspath(os.path.dirname(__file__)), 'setup_info.py')

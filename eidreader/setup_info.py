@@ -2,7 +2,8 @@ SETUP_INFO = dict(
     name='eidreader',
     version='0.0.3',
     install_requires=['requests', 'PyKCS11'],
-    scripts=['eidreader.py'],
+    scripts=['scripts/eidreader'],
+    packages=['eidreader'],
     description="Read data from Belgian eId card via command-line",
     license='Free BSD',
     author='Luc Saffre',
@@ -12,6 +13,10 @@ SETUP_INFO.update(long_description="""\
 
 eidreader is a command-line script which reads data from Belgian eID
 cards and writes the data to stdout or posts it to a web server.
+
+Not to be mixed up with its deprecated Java predecessor `eidreader
+<https://github.com/lsaffre/eidreader>`__ (same project name but
+another account).
 
 - The central project homepage is
   http://eidreader.lino-framework.org

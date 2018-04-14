@@ -21,3 +21,8 @@ Content
    usage
    changes
    
+
+
+
+Thanks to Vincent Hardy (vincent.hardy.be@gmail.com)
+  

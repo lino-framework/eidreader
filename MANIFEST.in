@@ -4,4 +4,3 @@ global-include *.txt *.py *.js *.css *.html \
   *.po *.mo
 prune docs
 prune .build
-include setup_info.py

@@ -1,43 +1,16 @@
-#!/usr/bin/env python
-
 # Copyright 2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 #
-# Thanks to Vincent Hardy (vincent.hardy.be@gmail.com)
-#
-"""
-
-Examples::
-
-  $ python -m eidreader
-
-  Read the Belgian eid card in reader and display the data to stdout.
-
-  $ python -m eidreader https://my.server.com/123
-  $ python -m eidreader beid://https://my.server.com/123
-
-  Send the data to https://my.server.com/123
-
-If url is a string of type "beid://https://foo.bar.hjk", remove the
-first scheme.  This is to support calling this directly as a protocol
-handler.
-
-"""
-
 import platform
 import os
 # import sys
-import argparse
-import requests
 from PyKCS11 import PyKCS11, CKA_CLASS, CKO_DATA, CKA_LABEL, CKA_VALUE
 
 SETUP_INFO = {}
 fn = os.path.join(os.path.dirname(__file__), 'setup_info.py')
 exec(compile(open(fn, "rb").read(), fn, 'exec'))
 
-SCHEMASEP = '://'
-
-def readdata():
+def eid2dict():
     if 'PYKCS11LIB' not in os.environ:
         if platform.system().lower() == 'linux':
             os.environ['PYKCS11LIB'] = 'libbeidpkcs11.so.0'
@@ -49,7 +22,7 @@ def readdata():
 
     slots = pkcs11.getSlotList()
     
-    data = dict(version=SETUP_INFO['version'])
+    data = dict(version=SETUP_INFO['version'], country="BE")
     
     # if len(slots) == 0:
     #     quit("No slot available")
@@ -115,29 +88,3 @@ def readdata():
     return data
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument("url", default=None, nargs='?')
-    args = parser.parse_args()
-    url = args.url
-    
-    if url:
-        lst = url.split(SCHEMASEP, 2)
-        if len(lst) == 3:
-            url = lst[1] + SCHEMASEP + lst[2]
-        elif len(lst) == 2:
-            url = lst[1]
-        else:
-            quit("Invalid URL {}".format(url))
-
-        data = readdata()
-        print("POST to {}: {}".format(url, data))
-        r = requests.post(url, data=data)
-        print(r)
-    else:
-        print(readdata())
-
-if __name__ == '__main__':    
-    main()
