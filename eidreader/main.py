@@ -1,23 +1,10 @@
 # Copyright 2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 """
+Read the Belgian eID card from reader and display the data to
+stdout or post it to a web server.
 
-Examples::
-
-  $ eidreader
-  $ python -m eidreader.main
-
-  Read the Belgian eid card in reader and display the data to stdout.
-
-  $ python -m eidreader.main https://my.server.com/123
-  $ python -m eidreader.main beid://https://my.server.com/123
-
-  Send the data to https://my.server.com/123
-
-If url is a string of type "beid://https://foo.bar.hjk", remove the
-first scheme.  This is to support calling this directly as a protocol
-handler.
-
+Details see http://eidreader.lino-framework.org/usage.html
 """
 
 import logging
@@ -100,8 +87,7 @@ def eid2dict():
 
     slots = pkcs11.getSlotList()
     
-    data = dict(
-        eidreader_version=SETUP_INFO['version'], eidreader_country="BE")
+    data = dict(eidreader_version=SETUP_INFO['version'], success=False)
     
     # if len(slots) == 0:
     #     quit("No slot available")
@@ -165,6 +151,7 @@ def eid2dict():
         #     print(o, dir( o ))
         # data.update(card_data=card_data)
         data.update(success=True)
+        data.update(eidreader_country="BE")
         # del data['error']
             
             
@@ -174,9 +161,7 @@ def eid2dict():
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("url", default=None, nargs='?')
     args = parser.parse_args()
     url = args.url
