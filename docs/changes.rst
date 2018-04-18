@@ -7,6 +7,12 @@ Changes in EIDReader
 Coming version
 ==============
 
+Version 0.0.7 (2018-04-18)
+==========================
+
+New command-line option ``--logfile``.
+
+
 Version 0.0.6 (2018-04-14)
 ==========================
 

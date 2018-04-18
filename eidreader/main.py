@@ -11,8 +11,10 @@ import logging
 logger = logging.getLogger(__name__)
 
 import os
+import sys
 import argparse
 import requests
+from requests.exceptions import ConnectionError
 # from eidreader import eid2dict
 from eidreader import SETUP_INFO
 import base64
@@ -163,9 +165,28 @@ def eid2dict():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("url", default=None, nargs='?')
+    parser.add_argument("-l", "--logfile", default=None)
     args = parser.parse_args()
     url = args.url
-    
+    if args.logfile:
+        logging.basicConfig(filename=args.logfile, level=logging.INFO,
+                            format='[%(asctime)s] %(levelname)s %(message)s')
+        # stderrLogger = logging.StreamHandler()
+        # stderrLogger.setFormatter(logging.Formatter(logging.BASIC_FORMAT))
+        # logging.getLogger().addHandler(stderrLogger)
+
+        # file_handler = logging.FileHandler(filename=args.logfile)
+        # stdout_handler = logging.StreamHandler(sys.stderr)
+        # handlers = [file_handler, stdout_handler]
+
+        # logging.basicConfig(
+        #     level=logging.INFO, 
+        #     format='[%(asctime)s] %(levelname)s - %(message)s',
+        #     handlers=handlers
+        # )        
+
+    logger = logging.getLogger('eidreader')
+   
     if url:
         lst = url.split(SCHEMESEP, 2)
         if len(lst) == 3:
@@ -177,9 +198,13 @@ def main():
             quit("Invalid URL {}".format(url))
 
         data = eid2dict()
-        print("POST to {}: {}".format(url, data))
-        r = requests.post(url, data=data)
-        print("POST returned {}".format(r))
+        logger.info("POST to {}: {}".format(url, data))
+        try:
+            r = requests.post(url, data=data)
+        except ConnectionError as e:
+            logger.info("ConnectionError %s", e)
+        else:
+            logger.info("POST returned {}".format(r))
     else:
         print(eid2dict())
 
