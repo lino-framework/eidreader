@@ -1,7 +1,7 @@
 .. _eidreader.changes: 
 
 ====================
-Changes in EIDReader
+Changes in eidreader
 ====================
 
 Coming version
