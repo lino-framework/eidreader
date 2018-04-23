@@ -11,14 +11,15 @@ import logging
 logger = logging.getLogger(__name__)
 
 import os
-import sys
+# import sys
 import argparse
+import base64
+import platform
+import json
 import requests
 from requests.exceptions import ConnectionError
 # from eidreader import eid2dict
 from eidreader import SETUP_INFO
-import base64
-import platform
 from PyKCS11 import PyKCS11, CKA_CLASS, CKO_DATA, CKA_LABEL, CKA_VALUE
 
 
@@ -94,26 +95,6 @@ def eid2dict():
     # if len(slots) == 0:
     #     quit("No slot available")
 
-    # fields = [
-    #     'surname',
-    #     'firstnames',
-    #     'other_names',
-    #     'gender',
-    #     'nationality',
-    #     'document_type',
-    #     'address_municipality',
-    #     'address_zip',
-    #     'date_of_birth',
-    #     'national_id',
-    #     'card_id',
-    #     'valid_until',
-    #     'location_of_birth',
-    #     'date_issued',
-    #     'address_street_and_number',
-    #     'date_and_country_of_protection']
-
-    # images = ['PHOTO_FILE', 'SIGN_DATA_FILE']
-
     for slot in slots:
         # card_data = {}
         try:
@@ -143,7 +124,7 @@ def eid2dict():
                     data[label] = value
                 elif label in images:
                     value = base64.b64encode(value)
-                    data[label] = value
+                    data[label] = value.decode('ascii')
             # print("{}: {}".format(label, value))
             # d = o.to_dict()
             # print(o['CKA_LABEL'])
@@ -206,7 +187,7 @@ def main():
         else:
             logger.info("POST returned {}".format(r))
     else:
-        print(eid2dict())
+        print(json.dumps(eid2dict()))
 
 if __name__ == '__main__':    
     main()
