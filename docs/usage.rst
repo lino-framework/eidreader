@@ -44,15 +44,22 @@ Simple usage
     {'special_status': '0', 'eidreader_country': 'BE',
     'carddata_soft_mask_version': '\x01', ... 'document_type': '01',
     'carddata_pkcs1_support': '!', 'national_number': '...',
-    'nobility': '', 'success': True}    
+    'nobility': '', 'success': True}
 
-        
-Sending data to a web server
-============================
 
-Instead of displaying the data to ``stdout``, you can send it to a web
-server.  For this you simply specify the destination URL as first
-argument::
+Integrating eidreader into a web application
+============================================
+
+**Alternative invocation** : Instead of invoking the :cmd:`eidreader`
+script, you can use Python's `-m
+<https://docs.python.org/3/using/cmdline.html#command-line>`__
+option::
+
+  $ python -m eidreader.main
+  
+**Sending data to a web server** : Instead of displaying the data to
+``stdout``, you can send it to a web server.  For this you simply
+specify the destination URL as first argument::
 
   $ eidreader https://my.server.com/123
 
@@ -80,24 +87,14 @@ schema handler without needing to remove yourself the schema in your
 handler definition.
 
 
-Alternative invocation
-======================
-
-Instead of invoking the :cmd:`eidreader` script, you can use Python's
-`-m <https://docs.python.org/3/using/cmdline.html#command-line>`__
-option::
-
-  $ python -m eidreader.main
-
-
-Integrating eidreader into a web application
-============================================
+Register a custom URL protocol handler
+======================================
 
 Since a web page has no permission to run local programs on a client
-machine, you must register a custom URL scheme handler on every client
+machine, you must register a custom URL protocol handler on every client
 machine.
 
-On a Linux machine you edit your :file:`mimeapps.list` file and add
+**On a Linux machine** you edit your :file:`mimeapps.list` file and add
 the following line::
 
     x-scheme-handler/beid=beid.desktop;
@@ -118,7 +115,7 @@ with this content::
     MimeType=x-scheme-handler/beid;
   
 
-On a Windows machine you can save the following text to a file named
+**On a Windows machine** you save the following text to a file named
 :file:`beid.reg` and then double-click on it:
 
 .. literalinclude:: beid.reg
@@ -127,11 +124,13 @@ On a Windows machine you can save the following text to a file named
 This will register ``beid://`` as a custom URL scheme on this machine.
                
 
+**Use URL with custom protocol in your HTML**
+
 And then your web application can generate HTML code like this:
 
 .. literalinclude:: caller.html
 
-When the user clicks on that link, her browser will shortly open a
+When the user clicks on that link, their browser will shortly open a
 popup window on the given URL, which will cause the custom schema
 handler to run :cmd:`eidreader`.
 
