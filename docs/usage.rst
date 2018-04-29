@@ -17,8 +17,8 @@ Instructions for Windows users:
   installer" (or -64) and run it as usual with default installation
   options.
   
-- Install SWIG : Go to 
-  http://www.swig.org/Doc1.3/Windows.html
+- Install SWIG : Go to
+  http://www.swig.org/download.html
   and follow the instructions.
   
 - Open a command prompt and type::
