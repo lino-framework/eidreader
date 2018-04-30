@@ -10,9 +10,9 @@ Coming version
 Version 0.0.8 (2018-04-30)
 ==========================
 
-Added an `eidreader.doc_trees` attribute.  This change does not change
-any functionality, it is just needed to fix a `failure when building
-the docs for the Lino Book
+Added an `eidreader.doc_trees` attribute for compliance with Atelier.
+This change does not change any functionality, it is just needed to
+fix a `failure when building the docs for the Lino Book
 <https://travis-ci.org/lino-framework/book/jobs/372900409>`__.
 
 Version 0.0.7 (2018-04-18)

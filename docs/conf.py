@@ -17,11 +17,8 @@ configure(globals())
 # extensions += ['lino.sphinxcontrib.logo']
 
 intersphinx_mapping = {}
-from importlib import import_module
-for n in 'atelier'.split():
-    m = import_module(n)
-    n = n.replace('_', "")
-    intersphinx_mapping[n] = (m.intersphinx_urls['docs'], None)
+from atelier.sphinxconf import interproject
+interproject.configure(globals(), 'atelier')
 
 project = "EIDReader"
 copyright = '2018 Rumma & Ko Ltd'
