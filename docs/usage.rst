@@ -2,35 +2,12 @@
 Usage
 =====
 
-Installation
-============
-
-Instructions for Linux users::
-
-  $ apt install python3 swig
-  $ pip install eidreader
-
-Instructions for Windows users:
-
-- Install Python : Go to https://www.python.org/downloads/windows/ and
-  select "Latest Python 3 Release".  Choose "Windows x86 executable
-  installer" (or -64) and run it as usual with default installation
-  options.
-  
-- Install SWIG : Go to
-  http://www.swig.org/download.html
-  and follow the instructions.
-  
-- Open a command prompt and type::
-    
-    pip install eidreader
-
-  Leave the command prompt open for the following section.
-
-    
 Simple usage
 ============
 
+eidreader is a command-line tool. Open a command prompt to try the
+following commands.
+    
 - Run the :cmd:`eidreader` command with an empty card reader::
 
     $ eidreader
