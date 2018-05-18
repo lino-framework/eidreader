@@ -15,6 +15,14 @@ This change does not change any functionality, it is just needed to
 fix a `failure when building the docs for the Lino Book
 <https://travis-ci.org/lino-framework/book/jobs/372900409>`__.
 
+
+When invoked without any argument :cmd:`eidreader` now uses
+:func:`json.dumps` instead of :func:`print`.  Advantage: you can now
+redirect the output of :cmd:`eidreader` to a file which serves as
+input for tests like those in `lino_book.projects.adg.tests
+<http://www.lino-framework.org/api/lino_book.projects.adg.tests.test_beid.html>`__
+
+
 Version 0.0.7 (2018-04-18)
 ==========================
 
@@ -36,7 +44,7 @@ dict.
 
 Some data fields were missing.
 
-# carddata_serialnumber
+
 Version 0.0.3 (2018-04-14)
 ==========================
 
