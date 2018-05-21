@@ -20,8 +20,7 @@ import requests
 from requests.exceptions import ConnectionError
 # from eidreader import eid2dict
 from eidreader import SETUP_INFO
-from PyKCS11 import PyKCS11, CKA_CLASS, CKO_DATA, CKA_LABEL, CKA_VALUE
-
+from PyKCS11 import PyKCS11, CKA_CLASS, CKO_DATA, CKA_LABEL, CKA_VALUE, PyKCS11Error
 
 SCHEMESEP = '://'
 
@@ -90,24 +89,30 @@ def eid2dict():
 
     slots = pkcs11.getSlotList()
     
-    data = dict(eidreader_version=SETUP_INFO['version'], success=False)
-    
+    data = dict(
+        eidreader_version=SETUP_INFO['version'], success=False,
+        message="Could not find any reader with a card inserted")
+            
+   
     # if len(slots) == 0:
     #     quit("No slot available")
 
     for slot in slots:
-        # card_data = {}
         try:
             # sess = eid.open_session(slot)
             sess = pkcs11.openSession(slot)
-        except PyKCS11.PyKCS11Error:
+        except PyKCS11Error:
             continue
             # data.update(error=str(e))
             # quit("Error: {}".format(e))
             
         # print(dir(sess))
-        objs = sess.findObjects([(CKA_CLASS, CKO_DATA)])
-        # print(len(objs))
+        try:
+            objs = sess.findObjects([(CKA_CLASS, CKO_DATA)])
+        except PyKCS11Error as e:
+            data.update(message=str(e))
+            break
+            # print(len(objs))
         # print(type(objs[0]), dir( objs[0]), objs[0].to_dict())
         for o in objs:
             label = sess.getAttributeValue(o, [CKA_LABEL])[0]
@@ -134,10 +139,10 @@ def eid2dict():
         #     print(o, dir( o ))
         # data.update(card_data=card_data)
         data.update(success=True)
+        data.update(message="OK")
         data.update(eidreader_country="BE")
         # del data['error']
-            
-            
+
     return data
 
 
@@ -178,7 +183,8 @@ def main():
         else:
             quit("Invalid URL {}".format(url))
 
-        data = eid2dict()
+        # data = eid2dict()  20180521 fix 2393
+        data = dict(card_data=json.dumps(eid2dict()))
         logger.info("POST to {}: {}".format(url, data))
         try:
             r = requests.post(url, data=data)

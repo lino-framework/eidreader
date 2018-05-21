@@ -7,6 +7,23 @@ Changes in eidreader
 Coming version
 ==============
 
+Version 1.0.0 (2018-05-21)
+==========================
+
+Major version bump because we optimized the format used for sending
+the data to an URL: instead of posting every data field as a string,
+eidreader now POSTs the card data as single field `card_data` whose
+value is a dict with the same fields as before, only that it is JSON
+encoded now.
+
+We also added a new field `message`.  Until now there was only one
+explanation for having `success` set to False: no card was inserted in
+the reader.  But actually there are other possible explanations:
+e.g. a card was there, but the user did not permit access to the
+reader.  In that latter case, `message` now contains
+"CKR_FUNCTION_FAILED (0x00000006)".
+
+
 Version 0.0.8 (2018-04-30)
 ==========================
 
