@@ -1,5 +1,5 @@
 from atelier.test import TestCase
-from eidreader import SETUP_INFO
+from eidreader.setup_info import SETUP_INFO
 
 class PackagesTest(TestCase):
     def test_packages(self):
