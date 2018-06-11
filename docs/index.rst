@@ -8,8 +8,8 @@ Welcome to the *eidreader* project page.
 
 .. py2rst::
 
-  from eidreader import SETUP_INFO
-  print(SETUP_INFO['long_description'])
+    from eidreader.setup_info import SETUP_INFO
+    print(SETUP_INFO['long_description'])
 
 
 If you encounter any problems during installation or usage, or if you
@@ -26,6 +26,7 @@ Content
    install
    usage
    changes
+   build
    
 
 Thanks to Vincent Hardy (vincent.hardy.be@gmail.com)

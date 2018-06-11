@@ -8,7 +8,7 @@ syntax: glob
 *.log
 *.doctrees
 tmp
-docs/api/lino_noi.*
+docs/dl
 docs/warnings_html.txt
 
 *.egg-info

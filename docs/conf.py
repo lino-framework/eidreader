@@ -23,8 +23,8 @@ interproject.configure(globals(), 'atelier')
 project = "EIDReader"
 copyright = '2018 Rumma & Ko Ltd'
 
-import eidreader
-release = eidreader.SETUP_INFO['version']
+from eidreader.setup_info import SETUP_INFO
+release = SETUP_INFO['version']
 
 # The short X.Y version.
 version = '.'.join(release.split('.')[:2])

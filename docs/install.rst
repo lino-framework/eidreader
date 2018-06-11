@@ -5,52 +5,76 @@ Installation
 Linux
 =====
 
-Instructions for Linux users::
+Instructions for Linux users.
 
-  $ apt install python3 swig
-  $ pip install eidreader
+#. Install the eidreader script itself::
+
+      $ apt install python3 swig
+      $ pip install eidreader
+
+
+#. The following steps will register ``beid://`` as a custom URL
+   scheme on this machine.
+
+#. Edit your :file:`mimeapps.list` file (usually in
+   :file:`~/.local/share/applications`) and add the following line::
+
+     x-scheme-handler/beid=beid.desktop;
+
+#. create a :file:`/usr/share/applications/beid.desktop` file
+   with this content::
+
+    [Desktop Entry]
+    Encoding=UTF-8
+    Version=1.0
+    Type=Application
+    Terminal=true
+    Exec=/path/to/python -m eidreader.main -l /path/to/eidreader.log %u
+    Name=eidreader
+    Comment=Run eidreader
+    Icon=
+    Categories=Application;Network;
+    MimeType=x-scheme-handler/beid;
+  
+
   
 
 Windows
 =======
 
-Instructions for Windows users:
+Instructions for Windows users.
 
-- Install Python : Go to https://www.python.org/downloads/windows/ and
-  select "Latest Python 3 Release".  Choose "Windows x86 executable
-  installer" (or -64) and run it as usual with default installation
-  options.
+#. Download the following file
+   to a temporary folder on your computer:
+   http://eidreader.lino-framework.org/dl/eidreader-1.0.1.7z
   
-- Install SWIG : Go to
-  http://www.swig.org/download.html
-  and follow the instructions.
+#. Unpack it to a folder of your choice,
+   e.g. :file:`C:\eidreader`.
+
+#. The following steps will register ``beid://`` as a custom URL
+   scheme on this machine.
+
+#. Save the following text to a file named :file:`beid.reg`:
+
+  .. literalinclude:: beid.reg
+      :encoding: utf-16
+
+#. Check whether the command in the file is the folder you chose
+
+#. Double-click on the :file:`beid.reg` file and confirm modification
+   of your registry.
+
+
+How to verify whether it works:   
+
+#. To actually run eidreader, you will need to install the Belgian eID
+   middleware from https://eid.belgium.be/en
+
+#. Point your browser to http://welfare-demo.lino-framework.org, and
+   sign in as robin (or romain or rolf depending on your preferred
+   language) and click on the :guilabel:`[Read eID card]` quicklink in
+   the main screen.  If you let Lino create a new client from your ID
+   card, you should afterwards delete that client if you don't want
+   others to see the stored information.
+
   
-- Open a command prompt and type::
-    
-    pip install eidreader
-
-If there was no error, you can leave the command prompt open and skip
-to the :doc:`usage` page.  Otherwise read on!
-
-
-Troubleshooting
-===============
-
-Here is a collection of problems reported by Windows users:
-    
-- **error: command 'swig.exe' failed: No such file or directory**
-
-  After downloading the :file:`swigwin-3.0.12.zip` file you must
-  unpack it.  Did you do that?  Use your Windows Explorer to find the
-  file :file:`swig.exe`.  What is the full name of the folder
-  containing this file? (for example ``C:\swigwin-3.0.12``).
-  
-  Check your :envvar:`PATH` environment variable (somewhere in your
-  system settings). The valu of this variable usually contains a long
-  text of style ``C:\Windows\;C:\Some\Other``.  It is a list of
-  folders where Windows should search for programs.  Got to the end of
-  that value and add ``;C:\swigwin-3.0.12`` (don't forget the
-  semicolon ";" which is the separator between folders).
-
-  After changing your :envvar:`PATH` variable you must open a new
-  command prompt window.

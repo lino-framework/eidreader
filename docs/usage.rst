@@ -66,27 +66,6 @@ Since a web page has no permission to run local programs on a client
 machine, you must register a custom URL protocol handler on every
 client machine.
 
-**On a Linux machine** you edit your :file:`mimeapps.list` file and
-add the following line::
-
-    x-scheme-handler/beid=beid.desktop;
-
-Then you create a :file:`/usr/share/applications/beid.desktop` file
-with this content::
-
-    [Desktop Entry]
-    Encoding=UTF-8
-    Version=1.0
-    Type=Application
-    Terminal=true
-    Exec=/path/to/python -m eidreader.main -l /path/to/eidreader.log %u
-    Name=eidreader
-    Comment=Run eidreader
-    Icon=
-    Categories=Application;Network;
-    MimeType=x-scheme-handler/beid;
-  
-
 **On a Windows machine** you save the following text to a file named
 :file:`beid.reg` and then double-click on it:
 
