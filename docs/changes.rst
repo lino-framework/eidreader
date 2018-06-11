@@ -7,6 +7,11 @@ Changes in eidreader
 Coming version
 ==============
 
+Version 1.0.1 (2018-06-11)
+==========================
+
+Some internal changes for the binary Windows installer.
+
 Version 1.0.0 (2018-05-21)
 ==========================
 

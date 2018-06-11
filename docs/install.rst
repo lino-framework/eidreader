@@ -16,8 +16,8 @@ Instructions for Linux users.
 #. The following steps will register ``beid://`` as a custom URL
    scheme on this machine.
 
-#. Edit your :file:`mimeapps.list` file and
-   add the following line::
+#. Edit your :file:`mimeapps.list` file (usually in
+   :file:`~/.local/share/applications`) and add the following line::
 
      x-scheme-handler/beid=beid.desktop;
 
@@ -44,32 +44,37 @@ Windows
 
 Instructions for Windows users.
 
-#. Download the file
-    http://eidreader.lino-framework.org/dl/eidreader-1.0.0.7z
-    to a temporary folder on your computer.
+#. Download the following file
+   to a temporary folder on your computer:
+   http://eidreader.lino-framework.org/dl/eidreader-1.0.1.7z
   
 #. Unpack it to a folder of your choice,
-    e.g. :file:`C:\eidreader`.
+   e.g. :file:`C:\eidreader`.
 
 #. The following steps will register ``beid://`` as a custom URL
    scheme on this machine.
 
-
-#. save the following text to a file named
-   :file:`beid.reg`:
+#. Save the following text to a file named :file:`beid.reg`:
 
   .. literalinclude:: beid.reg
       :encoding: utf-16
 
-
-#. Check whether the PATH in the file is the folder you chose
+#. Check whether the command in the file is the folder you chose
 
 #. Double-click on the :file:`beid.reg` file and confirm modification
    of your registry.
 
 
+How to verify whether it works:   
 
-To actually run eidreader, you will need to install the Belgian eID
-middleware from https://eid.belgium.be/en
+#. To actually run eidreader, you will need to install the Belgian eID
+   middleware from https://eid.belgium.be/en
+
+#. Point your browser to http://welfare-demo.lino-framework.org, and
+   sign in as robin (or romain or rolf depending on your preferred
+   language) and click on the :guilabel:`[Read eID card]` quicklink in
+   the main screen.  If you let Lino create a new client from your ID
+   card, you should afterwards delete that client if you don't want
+   others to see the stored information.
 
   
