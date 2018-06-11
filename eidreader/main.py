@@ -19,7 +19,7 @@ import json
 import requests
 from requests.exceptions import ConnectionError
 # from eidreader import eid2dict
-from eidreader import SETUP_INFO
+from eidreader.setup_info import SETUP_INFO
 from PyKCS11 import PyKCS11, CKA_CLASS, CKO_DATA, CKA_LABEL, CKA_VALUE, PyKCS11Error
 
 SCHEMESEP = '://'
