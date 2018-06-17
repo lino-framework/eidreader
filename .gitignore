@@ -17,3 +17,5 @@ docs/warnings_html.txt
 .coverage.*
 .eggs
 .cache
+build
+dist

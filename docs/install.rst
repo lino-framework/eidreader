@@ -13,15 +13,15 @@ Instructions for Linux users.
       $ pip install eidreader
 
 
-#. The following steps will register ``beid://`` as a custom URL
-   scheme on this machine.
+#. Register ``beid://`` as a custom URL scheme on your machine, as
+   explained in the following steps.
 
 #. Edit your :file:`mimeapps.list` file (usually in
    :file:`~/.local/share/applications`) and add the following line::
 
      x-scheme-handler/beid=beid.desktop;
 
-#. create a :file:`/usr/share/applications/beid.desktop` file
+#. Create a :file:`/usr/share/applications/beid.desktop` file
    with this content::
 
     [Desktop Entry]
@@ -46,13 +46,13 @@ Instructions for Windows users.
 
 #. Download the following file
    to a temporary folder on your computer:
-   http://eidreader.lino-framework.org/dl/eidreader-1.0.1.7z
+   http://eidreader.lino-framework.org/dl/eidreader-1.0.1.zip
   
 #. Unpack it to a folder of your choice,
    e.g. :file:`C:\eidreader`.
 
-#. The following steps will register ``beid://`` as a custom URL
-   scheme on this machine.
+#. Register ``beid://`` as a custom URL scheme on your machine, as
+   explained in the following steps.
 
 #. Save the following text to a file named :file:`beid.reg`:
 
@@ -73,8 +73,8 @@ How to verify whether it works:
 #. Point your browser to http://welfare-demo.lino-framework.org, and
    sign in as robin (or romain or rolf depending on your preferred
    language) and click on the :guilabel:`[Read eID card]` quicklink in
-   the main screen.  If you let Lino create a new client from your ID
-   card, you should afterwards delete that client if you don't want
-   others to see the stored information.
+   the main screen.  If you let Lino create a new database record from
+   your ID card, you should afterwards delete that client if you don't
+   want others to see the stored information.
 
   

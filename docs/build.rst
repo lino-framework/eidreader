@@ -26,11 +26,14 @@ When your build environment is set up, here is how to create a
 distribution file::
 
   i  
-  pyinstaller eidreader\scripts\eidreader
+  pyinstaller eidreader/scripts/eidreader
   cd dist
-  7z a eidreader eidreader
+  python -m zipfile -c eidreader.zip eidreader
 
-This creates a file :file:`eidreader.7z` in your `dist` folder.
+.. 7z a eidreader eidreader
+
+  
+This creates a file :file:`eidreader.zip` in your `dist` folder.
   
  
 
