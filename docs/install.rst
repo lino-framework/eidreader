@@ -49,7 +49,7 @@ Instructions for Windows users.
    http://eidreader.lino-framework.org/dl/eidreader-1.0.1.zip
   
 #. Unpack it to a folder of your choice,
-   e.g. :file:`C:\eidreader`.
+   e.g. :file:`C:\\eidreader`.
 
 #. Register ``beid://`` as a custom URL scheme on your machine, as
    explained in the following steps.
