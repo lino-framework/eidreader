@@ -2,10 +2,20 @@
 Installation
 ============
 
-Linux
-=====
+This page explains how to install eidreader on your computer.
 
-Instructions for Linux users.
+
+.. contents::
+   :depth: 1
+   :local:
+
+
+
+Install eidreader on Linux
+==========================
+
+Instructions for Linux users.  Windows users please skip to the next
+section.
 
 #. Install the eidreader script itself::
 
@@ -39,35 +49,44 @@ Instructions for Linux users.
 
   
 
-Windows
-=======
+Install eidreader on Windows
+============================
 
 Instructions for Windows users.
 
-#. Download the following file
+1. Download the following file
    to a temporary folder on your computer:
    http://eidreader.lino-framework.org/dl/eidreader-1.0.1.zip
   
-#. Unpack it to a folder of your choice,
+2. Unpack it to a folder of your choice,
    e.g. :file:`C:\\eidreader`.
 
-#. Register ``beid://`` as a custom URL scheme on your machine, as
+3. Register ``beid://`` as a custom URL scheme on your machine, as
    explained in the following steps.
 
-#. Save the following text to a file named :file:`beid.reg`:
+4. Open Notepad or a similar text editor and copy the following text
+   to a new file:
 
   .. literalinclude:: beid.reg
       :encoding: utf-16
 
-#. Check whether the command in the file is the folder you chose
+5. Check whether the command on the last line in the file is the
+   folder you chose in step 2.
 
-#. Double-click on the :file:`beid.reg` file and confirm modification
-   of your registry.
+6. Save the file in a temporary folder as :file:`beid.reg`.
 
+7. Open Windows Explorer, find the :file:`beid.reg` file, double-click
+   on it and confirm modification of your registry.
 
-How to verify whether it works:   
+8. You can now delete the file :file:`beid.reg` or keep it in case you
+   want to install eidreader on other computers.
 
-#. To actually run eidreader, you will need to install the Belgian eID
+Test whether it worked
+======================
+   
+How to verify whether eidreader works:   
+
+#. To actually run eidreader, you need to install the Belgian eID
    middleware from https://eid.belgium.be/en
 
 #. Point your browser to http://welfare-demo.lino-framework.org, and
