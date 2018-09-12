@@ -7,6 +7,14 @@ Changes in eidreader
 Coming version
 ==============
 
+Version 1.0.2 (2018-09-12)
+==========================
+
+- eidreader now runs without opening a console window. This is no code
+  change, just added the `--noconsole
+  <https://pyinstaller.readthedocs.io/en/stable/usage.html#windows-and-mac-os-x-specific-options>`__
+  option when building.
+
 Version 1.0.1 (2018-06-11)
 ==========================
 

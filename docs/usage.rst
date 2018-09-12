@@ -10,7 +10,8 @@ following commands.
     
 - Run the :cmd:`eidreader` command with an empty card reader::
 
-    $ eidreader
+    $ eidreader > tmp.txt
+    $ type tmp.txt
     {"eidreader_version": "1.0.0", "success": false, "message": "Could not find any reader with a card inserted"}
 
         
@@ -18,7 +19,8 @@ following commands.
 - Insert a Belgian eID card into your reader and run the command
   again::
     
-    $ eidreader
+    $ eidreader > tmp.txt
+    $ type tmp.txt
     {"special_status": "0", "eidreader_country": "BE",
     "carddata_soft_mask_version": "\x01", ... "document_type": "01",
     "carddata_pkcs1_support": '!', "national_number": '...',
@@ -79,7 +81,7 @@ script, you can use Python's `-m
 <https://docs.python.org/3/using/cmdline.html#command-line>`__
 option::
 
-  $ python -m eidreader.main
+  $ pythonw -m eidreader.main
 
 
 **Use URL with custom protocol in your HTML**

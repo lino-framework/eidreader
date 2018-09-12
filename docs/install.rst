@@ -56,7 +56,7 @@ Instructions for Windows users.
 
 1. Download the following file
    to a temporary folder on your computer:
-   http://eidreader.lino-framework.org/dl/eidreader-1.0.1.zip
+   http://eidreader.lino-framework.org/dl/eidreader-1.0.2.zip
   
 2. Unpack it to a folder of your choice,
    e.g. :file:`C:\\eidreader`.
