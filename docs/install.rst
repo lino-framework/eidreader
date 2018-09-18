@@ -38,7 +38,7 @@ section.
     Encoding=UTF-8
     Version=1.0
     Type=Application
-    Terminal=true
+    Terminal=false
     Exec=/path/to/python -m eidreader.main -l /path/to/eidreader.log %u
     Name=eidreader
     Comment=Run eidreader
