@@ -1,6 +1,6 @@
 SETUP_INFO = dict(
     name='eidreader',
-    version='1.0.2',
+    version='1.0.3',
     install_requires=['requests', 'PyKCS11'],
     scripts=['scripts/eidreader'],
     packages=['eidreader'],

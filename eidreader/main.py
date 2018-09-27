@@ -11,12 +11,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 import os
-# import sys
+import sys
 import argparse
 import base64
 import platform
 import json
 import requests
+from urllib.request import getproxies
 from requests.exceptions import ConnectionError
 # from eidreader import eid2dict
 from eidreader.setup_info import SETUP_INFO
@@ -172,8 +173,11 @@ def main():
         # )        
 
     logger = logging.getLogger('eidreader')
+    logger.info("%s", ' '.join(sys.argv))
    
     if url:
+        proxies = getproxies()
+        logger.info("proxies: %s", proxies)
         lst = url.split(SCHEMESEP, 2)
         if len(lst) == 3:
             url = lst[1] + SCHEMESEP + lst[2]
@@ -187,7 +191,7 @@ def main():
         data = dict(card_data=json.dumps(eid2dict()))
         logger.info("POST to {}: {}".format(url, data))
         try:
-            r = requests.post(url, data=data)
+            r = requests.post(url, data=data, proxies=proxies)
         except ConnectionError as e:
             logger.info("ConnectionError %s", e)
         else:

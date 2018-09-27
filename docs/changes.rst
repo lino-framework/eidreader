@@ -7,6 +7,15 @@ Changes in eidreader
 Coming version
 ==============
 
+Version 1.0.3 (2018-09-27)
+==========================
+
+- eidreader now works from behind a proxy. It uses the `getproxies()
+  <https://docs.python.org/3.7/library/urllib.request.html#urllib.request.getproxies>`__
+  standard function for finding out the proxies configured on this
+  computer and forwards them to `python-requests
+  <http://docs.python-requests.org/en/master/user/advanced/#proxies>`__.
+
 Version 1.0.2 (2018-09-12)
 ==========================
 

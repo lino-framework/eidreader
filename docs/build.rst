@@ -33,11 +33,11 @@ distribution file::
 .. 7z a eidreader eidreader
 
 This creates a file :file:`eidreader.zip` in your `dist` folder.
-  
+
+.. on my machine:
+
+   $ cp /media/luc/01D0AAA1C6A39410/Users/kasutaja/dist/eidreader.zip ~/work/eid/docs/dl/eidreader-1.0.3.zip
  
-
-
-Instructions for Windows users:
 
 If there was no error, you can leave the command prompt open and skip
 to the :doc:`usage` page.  Otherwise read on!
