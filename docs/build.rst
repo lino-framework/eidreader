@@ -34,13 +34,13 @@ distribution file::
 
 This creates a file :file:`eidreader.zip` in your `dist` folder.
 
-.. on my machine:
+.. on my machine I then finish the release by saying::
 
-   $ cp /media/luc/01D0AAA1C6A39410/Users/kasutaja/dist/eidreader.zip ~/work/eid/docs/dl/eidreader-1.0.3.zip
+   $ cd /media/luc/01D0AAA1C6A39410/Users/kasutaja/dist
+   $ cp eidreader-1.0.3.zip ~/work/eid/docs/dl/
+   $ go eid
+   $ inv bd pd
  
-
-If there was no error, you can leave the command prompt open and skip
-to the :doc:`usage` page.  Otherwise read on!
 
 
 Troubleshooting
