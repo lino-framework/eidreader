@@ -22,7 +22,6 @@ section.
       $ apt install python3 swig
       $ pip install eidreader
 
-
 #. Register ``beid://`` as a custom URL scheme on your machine, as
    explained in the following steps.
 

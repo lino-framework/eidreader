@@ -7,6 +7,14 @@ Changes in eidreader
 Coming version
 ==============
 
+- (20181001) eidreader now looks for a file `eidreader.ini` and reads
+  two settings `http_proxy` and `https_proxy` from it.  This is just
+  another way to specify proxies.  If a config file is found and has
+  these settings, then they override what `getproxies()
+  <https://docs.python.org/3.7/library/urllib.request.html#urllib.request.getproxies>`__
+  gave.  If the proxy requires authentication, you still need to
+  specify them (either in the envvar or in the config file).
+
 Version 1.0.3 (2018-09-27)
 ==========================
 

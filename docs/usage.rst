@@ -10,17 +10,14 @@ following commands.
     
 - Run the :cmd:`eidreader` command with an empty card reader::
 
-    $ eidreader > tmp.txt
-    $ type tmp.txt
+    $ eidreader
     {"eidreader_version": "1.0.0", "success": false, "message": "Could not find any reader with a card inserted"}
 
-        
 
 - Insert a Belgian eID card into your reader and run the command
   again::
     
-    $ eidreader > tmp.txt
-    $ type tmp.txt
+    $ eidreader
     {"special_status": "0", "eidreader_country": "BE",
     "carddata_soft_mask_version": "\x01", ... "document_type": "01",
     "carddata_pkcs1_support": '!', "national_number": '...',
@@ -48,10 +45,52 @@ This is to support calling :cmd:`eidreader` directly as a custom URL
 schema handler without needing to remove yourself the schema in your
 handler definition.
 
+**Command-line options**
 
-Receiving data into a web application
-=====================================
+-l, --logfile
 
+-c, --cfgfile
+
+    Load the specified config file before looking at the standard
+    locations.
+
+**Running from behind a proxy**
+
+eidreader works from behind a proxy. It uses the `getproxies()
+<https://docs.python.org/3.7/library/urllib.request.html#urllib.request.getproxies>`__
+standard function for finding out the proxies configured on this
+computer and forwards them to `python-requests
+<http://docs.python-requests.org/en/master/user/advanced/#proxies>`__.
+
+If the proxy requires authentication, you need to specify them in the
+URL (either in the envvar or in the config file) using the
+``user:pass@`` syntax.
+
+**Config file**
+
+eidreader also looks for a file `eidreader.ini` and reads two settings
+`http_proxy` and `https_proxy` from it.  This is just another way to
+specify proxies.  If a config file is found and has these settings,
+then they override what `getproxies()
+<https://docs.python.org/3.7/library/urllib.request.html#urllib.request.getproxies>`__
+gave.
+
+The :xfile:`eidreader.ini` file can be (1) in the current
+directory, (2) in the user's home directory or (3) in the same
+directory as the eidreader script.  It should look something like::
+
+    [eidreader]
+    http_proxy = http://user:pass@10.10.1.10:3128
+    https_proxy = http://user:pass@10.10.1.10:1080
+
+   
+
+
+
+eidreader and the web application
+=================================
+
+eidreader is designed to collaborate with a web application.
 
 You are responsible for implementing a server that accepts the POST
 request and processes the data.  An example of such a web server is
@@ -59,29 +98,6 @@ request and processes the data.  An example of such a web server is
 <http://avanti.lino-framework.org/install/index.html>`__ and run a
 demo server and click on the ``[Read eID card]`` link in the `Quick
 links` section).
-
-
-Register a custom URL schema handler
-====================================
-
-Since a web page has no permission to run local programs on a client
-machine, you must register a custom URL protocol handler on every
-client machine.
-
-**On a Windows machine** you save the following text to a file named
-:file:`beid.reg` and then double-click on it:
-
-.. literalinclude:: beid.reg
-    :encoding: utf-16
-
-This will register ``beid://`` as a custom URL scheme on this machine.
-
-**Alternative invocation** : Instead of invoking the :cmd:`eidreader`
-script, you can use Python's `-m
-<https://docs.python.org/3/using/cmdline.html#command-line>`__
-option::
-
-  $ pythonw -m eidreader.main
 
 
 **Use URL with custom protocol in your HTML**
@@ -93,6 +109,14 @@ Your web application should generate HTML code like this:
 When the user clicks on that link, their browser will shortly open a
 popup window on the given URL, which will cause the custom schema
 handler to run :cmd:`eidreader`.
+
+**Alternative invocation**
+
+Instead of invoking the :cmd:`eidreader` script, you can use Python's
+`-m <https://docs.python.org/3/using/cmdline.html#command-line>`__
+option::
+
+  $ pythonw -m eidreader.main
 
 
 Install once, use from many clients

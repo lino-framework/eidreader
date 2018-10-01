@@ -8,14 +8,15 @@ Details see http://eidreader.lino-framework.org/usage.html
 """
 
 import logging
-logger = logging.getLogger(__name__)
 
 import os
+from os.path import expanduser, join, dirname
 import sys
 import argparse
 import base64
 import platform
 import json
+import configparser
 import requests
 from urllib.request import getproxies
 from requests.exceptions import ConnectionError
@@ -147,14 +148,18 @@ def eid2dict():
     return data
 
 
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("url", default=None, nargs='?')
     parser.add_argument("-l", "--logfile", default=None)
+    parser.add_argument("-c", "--cfgfile", default=None)
     args = parser.parse_args()
     url = args.url
+    
+    cfg_files = ["eidreader.ini", expanduser("~/eidreader.ini"),
+                 join(dirname(__file__), "eidreader.ini")]
+    if args.cfgfile:
+        cfg_files = [args.cfgfile]
     if args.logfile:
         logging.basicConfig(filename=args.logfile, level=logging.INFO,
                             format='[%(asctime)s] %(levelname)s %(message)s')
@@ -177,7 +182,16 @@ def main():
    
     if url:
         proxies = getproxies()
+        cp = configparser.ConfigParser()
+        logger.info("Load config from %s", cfg_files)
+        cp.read(cfg_files)
+        config = cp['eidreader']
+        if 'http_proxy' in config:
+            proxies['http'] = config['http_proxy']
+        if 'https_proxy' in config:
+            proxies['https'] = config['https_proxy']
         logger.info("proxies: %s", proxies)
+        
         lst = url.split(SCHEMESEP, 2)
         if len(lst) == 3:
             url = lst[1] + SCHEMESEP + lst[2]
