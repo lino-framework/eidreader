@@ -182,15 +182,16 @@ def main():
    
     if url:
         proxies = getproxies()
+        logger.info("getproxies() returned %s", proxies)
         cp = configparser.ConfigParser()
         logger.info("Load config from %s", cfg_files)
         cp.read(cfg_files)
-        config = cp['eidreader']
+        config = cp.get('eidreader', {})
         if 'http_proxy' in config:
             proxies['http'] = config['http_proxy']
         if 'https_proxy' in config:
             proxies['https'] = config['https_proxy']
-        logger.info("proxies: %s", proxies)
+        logger.info("Using proxies: %s", proxies)
         
         lst = url.split(SCHEMESEP, 2)
         if len(lst) == 3:
@@ -201,15 +202,16 @@ def main():
         else:
             quit("Invalid URL {}".format(url))
 
+        logger.info("Reading data...")
         # data = eid2dict()  20180521 fix 2393
         data = dict(card_data=json.dumps(eid2dict()))
-        logger.info("POST to {}: {}".format(url, data))
+        logger.info("Got data %s", data)
+        logger.info("POST data to %s", url)
         try:
             r = requests.post(url, data=data, proxies=proxies)
+            logger.info("POST returned {}".format(r))
         except ConnectionError as e:
             logger.info("ConnectionError %s", e)
-        else:
-            logger.info("POST returned {}".format(r))
     else:
         print(json.dumps(eid2dict()))
 

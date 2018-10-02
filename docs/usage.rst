@@ -81,7 +81,7 @@ directory as the eidreader script.  It should look something like::
 
     [eidreader]
     http_proxy = http://user:pass@10.10.1.10:3128
-    https_proxy = http://user:pass@10.10.1.10:1080
+    https_proxy = https://user:pass@10.10.1.10:1080
 
    
 
