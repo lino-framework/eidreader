@@ -12,7 +12,9 @@ Version 1.0.5 (2018-10-02)
 ==========================
 
 - More detailed logging.
-
+- Script failed when no eidreader.ini was found or when there was no
+  section "eidreader" in the file.
+   
 Version 1.0.4 (2018-10-02)
 ==========================
 

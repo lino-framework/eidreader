@@ -186,11 +186,15 @@ def main():
         cp = configparser.ConfigParser()
         logger.info("Load config from %s", cfg_files)
         cp.read(cfg_files)
-        config = cp.get('eidreader', {})
-        if 'http_proxy' in config:
-            proxies['http'] = config['http_proxy']
-        if 'https_proxy' in config:
-            proxies['https'] = config['https_proxy']
+        if 'eidreader' in cp:
+            config = cp.get('eidreader')
+            logger.info("Found config %s", config)
+            if 'http_proxy' in config:
+                proxies['http'] = config['http_proxy']
+            if 'https_proxy' in config:
+                proxies['https'] = config['https_proxy']
+        else:
+            logger.info("No config found")
         logger.info("Using proxies: %s", proxies)
         
         lst = url.split(SCHEMESEP, 2)
