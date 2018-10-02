@@ -7,6 +7,14 @@ Changes in eidreader
 Coming version
 ==============
 
+
+Version 1.0.4 (2018-10-02)
+==========================
+
+It seems that the Windows version of eidreader does not find the proxy
+config.  We released this version so users can test witha config file.
+
+
 - (20181001) eidreader now looks for a file `eidreader.ini` and reads
   two settings `http_proxy` and `https_proxy` from it.  This is just
   another way to specify proxies.  If a config file is found and has
