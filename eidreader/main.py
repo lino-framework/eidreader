@@ -178,7 +178,7 @@ def main():
         # )        
 
     logger = logging.getLogger('eidreader')
-    logger.info("%s", ' '.join(sys.argv))
+    logger.info("Invoked as %s", ' '.join(sys.argv))
    
     if url:
         proxies = getproxies()

@@ -79,6 +79,7 @@ Instructions for Windows users.
 
 8. You can now delete the file :file:`beid.reg` or keep it in case you
    want to install eidreader on other computers.
+   
 
 Test whether it worked
 ======================
