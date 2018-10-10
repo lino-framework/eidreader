@@ -8,6 +8,12 @@ Coming version
 ==============
 
 
+Version 1.0.6 (2018-10-10)
+==========================
+
+- Script was still failing when a config file was found.  Stupid typo
+  error.
+
 Version 1.0.5 (2018-10-02)
 ==========================
 
