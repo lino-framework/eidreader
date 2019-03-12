@@ -1,4 +1,4 @@
-# Copyright 2018 Rumma & Ko Ltd
+# Copyright 2018-2019 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 """
 Read the Belgian eID card from reader and display the data to
@@ -83,6 +83,8 @@ def eid2dict():
     if 'PYKCS11LIB' not in os.environ:
         if platform.system().lower() == 'linux':
             os.environ['PYKCS11LIB'] = 'libbeidpkcs11.so.0'
+        elif platform.system().lower() == 'darwin':
+            os.environ['PYKCS11LIB'] = 'libbeidpkcs11.dylib'
         else:
             os.environ['PYKCS11LIB'] = 'beidpkcs11.dll'
 

@@ -7,6 +7,9 @@ Changes in eidreader
 Coming version
 ==============
 
+- eidreader should now run OOTB also on MacOS.
+  Thanks to Quentin LECLER for reporting the issue and the name of the lib file:
+  https://github.com/lino-framework/eidreader/issues/3
 
 Version 1.0.6 (2018-10-10)
 ==========================
