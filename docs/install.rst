@@ -1,3 +1,5 @@
+.. _eidreader.install:
+
 ============
 Installation
 ============
@@ -19,18 +21,24 @@ section.
 
 #. Install the eidreader script itself::
 
-      $ apt install python3 swig
+      $ sudo apt install python3 swig
       $ pip install eidreader
 
 #. Register ``beid://`` as a custom URL scheme on your machine, as
    explained in the following steps.
 
-#. Edit your :file:`mimeapps.list` file (usually in
-   :file:`~/.local/share/applications`) and add the following line::
+#. Edit your :xfile:`mimeapps.list` file and add the following line::
 
      x-scheme-handler/beid=beid.desktop;
 
-#. Create a :file:`/usr/share/applications/beid.desktop` file
+   The :xfile:`mimeapps.list` file is usually in
+   :file:`~/.local/share/applications` or :file:`~/.config`.  (`askubuntu
+   <https://askubuntu.com/questions/957608/where-i-find-mimeapps-list>`_,
+   `archlinux
+   <https://wiki.archlinux.org/index.php/default_applications#MIME_types>`__)
+   Run :cmd:`locate mimeapps.list` to see where it occurs.
+
+#. Create a file :file:`/usr/share/applications/beid.desktop`
    with this content::
 
     [Desktop Entry]
@@ -44,9 +52,17 @@ section.
     Icon=
     Categories=Application;Network;
     MimeType=x-scheme-handler/beid;
-  
 
-  
+Or if you like to play, say ``Exec=/home/joe/bin/beid.sh %u`` in above file and
+then create an executable  :file:`beid.sh`::
+
+    #!/bin/bash
+    set -e
+    LOGFILE=/home/joe/bin/beid.log
+    date > $LOGFILE
+    echo eidreader $* >> $LOGFILE
+    /home/joe/virtualenvs/py3/bin/python -m eidreader.main -l $LOGFILE $* 2>> $LOGFILE
+
 
 Install eidreader on Windows
 ============================
@@ -56,7 +72,7 @@ Instructions for Windows users.
 1. Download the following file
    to a temporary folder on your computer:
    http://eidreader.lino-framework.org/dl/eidreader-1.0.6.zip
-  
+
 2. Unpack it to a folder of your choice,
    e.g. :file:`C:\\eidreader`.
 
@@ -79,12 +95,12 @@ Instructions for Windows users.
 
 8. You can now delete the file :file:`beid.reg` or keep it in case you
    want to install eidreader on other computers.
-   
+
 
 Test whether it worked
 ======================
-   
-How to verify whether eidreader works:   
+
+How to verify whether eidreader works:
 
 #. To actually run eidreader, you need to install the Belgian eID
    middleware from https://eid.belgium.be/en
@@ -99,4 +115,12 @@ How to verify whether eidreader works:
    delete that client if you don't want others to see the stored
    information.
 
-  
+
+
+Troubleshooter
+==============
+
+src/dyn_unix.c:34:SYS_dyn_LoadLibrary() libbeidpkcs11.so.0: cannot open shared
+object file: No such file or directory
+--> you don't have the beid middleware installed.
+See https://eid.belgium.be/en/linux-eid-software-installation
