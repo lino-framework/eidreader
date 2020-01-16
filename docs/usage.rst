@@ -2,12 +2,12 @@
 Usage
 =====
 
-Simple usage
-============
+Command-line usage
+==================
 
-eidreader is a command-line tool. Open a command prompt to try the
+eidreader itself is a command-line tool. Open a command prompt to try the
 following commands.
-    
+
 - Run the :cmd:`eidreader` command with an empty card reader::
 
     $ eidreader
@@ -16,7 +16,7 @@ following commands.
 
 - Insert a Belgian eID card into your reader and run the command
   again::
-    
+
     $ eidreader
     {"special_status": "0", "eidreader_country": "BE",
     "carddata_soft_mask_version": "\x01", ... "document_type": "01",
@@ -83,24 +83,23 @@ directory as the eidreader script.  It should look something like::
     http_proxy = http://user:pass@10.10.1.10:3128
     https_proxy = https://user:pass@10.10.1.10:1080
 
-   
+**Alternative invocation**
+
+When invoking :cmd:`eidreader` from a script, you may prefer to use Python's `-m
+<https://docs.python.org/3/using/cmdline.html#command-line>`__ option::
+
+  $ pythonw -m eidreader.main
 
 
 
-eidreader and the web application
-=================================
+The web application
+===================
 
-eidreader is designed to collaborate with a web application.
+You are responsible for implementing a server that accepts the POST requests
+issued by eidreader and processes the data.
 
-You are responsible for implementing a server that accepts the POST
-request and processes the data.  An example of such a web server is
-`Lino Avanti <http://avanti.lino-framework.org/>`__ (Hint: `install
-<http://avanti.lino-framework.org/install/index.html>`__ and run a
-demo server and click on the ``[Read eID card]`` link in the `Quick
-links` section).
-
-
-**Use URL with custom protocol in your HTML**
+To **invoke eidreader from a browser**, you must use a ``<a href>`` tag with a
+custom URL protocol.
 
 Your web application should generate HTML code like this:
 
@@ -110,13 +109,11 @@ When the user clicks on that link, their browser will shortly open a
 popup window on the given URL, which will cause the custom schema
 handler to run :cmd:`eidreader`.
 
-**Alternative invocation**
 
-Instead of invoking the :cmd:`eidreader` script, you can use Python's
-`-m <https://docs.python.org/3/using/cmdline.html#command-line>`__
-option::
-
-  $ pythonw -m eidreader.main
+.. An example of such a web server is `Lino Avanti
+  <http://avanti.lino-framework.org/>`__ (Hint: `install
+  <http://avanti.lino-framework.org/install/index.html>`__ and run a demo server
+  and click on the ``[Read eID card]`` link in the `Quick links` section).
 
 
 Install once, use from many clients
@@ -128,5 +125,3 @@ drive and then run :cmd:`eidreader` from any client using something
 like this::
 
   F:\Python\python.exe -m eidreader.main
-  
-

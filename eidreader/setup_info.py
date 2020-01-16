@@ -12,8 +12,9 @@ SETUP_INFO = dict(
 
 SETUP_INFO.update(long_description="""\
 
-eidreader is a command-line script which reads data from Belgian eID
-cards and writes the data to stdout or posts it to a web server.
+eidreader is a command-line script that reads data from Belgian eID cards and
+writes the data to stdout or posts it to a web server. It is designed to be used
+together  with a web application.
 
 Not to be mixed up with its deprecated Java predecessor `eidreader
 <https://github.com/lsaffre/eidreader>`__ (same project name but
@@ -28,9 +29,8 @@ another account).
 SETUP_INFO.update(classifiers="""\
 Programming Language :: Python
 Programming Language :: Python :: 3
-Development Status :: 4 - Beta
+Development Status :: 5 - Stable
 Intended Audience :: Developers
 License :: OSI Approved :: BSD License
 Natural Language :: English
 Operating System :: OS Independent""".splitlines())
-
