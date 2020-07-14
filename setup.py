@@ -1,6 +1,7 @@
 from setuptools import setup
 fn = 'eidreader/setup_info.py'
-exec(compile(open(fn, "rb").read(), fn, 'exec'))
+with open(fn, "rb") as fd:
+    exec(compile(fd.read(), fn, 'exec'))
 
 #from cx_Freeze import setup
 #from cx_Freeze import Executable
