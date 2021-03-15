@@ -12,10 +12,6 @@ Welcome to the *eidreader* project page.
     print(SETUP_INFO['long_description'])
 
 
-If you encounter any problems during installation or usage, or if you
-have suggestions or feature requests, please report your issues here:
-https://github.com/lino-framework/eidreader/issues
-
 
 Content
 ========
@@ -25,9 +21,5 @@ Content
 
    install
    usage
-   changes
+   Changelog <changes>
    build
-   
-
-Thanks to Vincent Hardy (vincent.hardy.be@gmail.com)
-  

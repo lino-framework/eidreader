@@ -23,6 +23,12 @@ another account).
 - The central project homepage is https://eidreader.lino-framework.org
 - Please report issues to https://github.com/lino-framework/eidreader/issues
 
+This script was written and is maintained by Luc Saffre <luc@saffre-rumma.net>.
+
+Thanks to Vincent Hardy (vincent.hardy.be@gmail.com)
+
+
+
 """)
 SETUP_INFO.update(classifiers="""\
 Programming Language :: Python
