@@ -71,7 +71,7 @@ Instructions for Windows users.
 
 1. Download the following file
    to a temporary folder on your computer:
-   http://eidreader.lino-framework.org/dl/eidreader-1.0.6.zip
+   https://eidreader.lino-framework.org/dl/eidreader-1.0.6.zip
 
 2. Unpack it to a folder of your choice,
    e.g. :file:`C:\\eidreader`.
@@ -105,11 +105,12 @@ How to verify whether eidreader works:
 #. To actually run eidreader, you need to install the Belgian eID
    middleware from https://eid.belgium.be/en
 
-#. Point your browser to http://welfare-demo.lino-framework.org, and
+#. Point your browser to https://weleup1.mylino.net/, and
    sign in as robin (or romain or rolf depending on your preferred
    language) and click on the :guilabel:`[Read eID card]` quicklink in
-   the main screen.  The card reader will start reading (possibly
-   after a confirmation asked by the middleware).  Lino will ask you
+   the main screen.  When asked whether to give the site permission to open
+   the beid link with eidreader, say yes.  The card reader will start
+   reading.  Lino will ask you
    whether you want to create a new client based on the card data.  If
    you let Lino create a new database record, you should afterwards
    delete that client if you don't want others to see the stored
