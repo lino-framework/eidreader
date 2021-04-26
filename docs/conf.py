@@ -18,5 +18,4 @@ html_context.update({
     'display_gitlab': True,
     'gitlab_user': 'lino-framework',
     'gitlab_repo': 'eidreader',
-    'public_url': 'https://eidreader.lino-framework.org',
 })
