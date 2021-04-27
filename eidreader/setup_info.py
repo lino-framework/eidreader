@@ -6,9 +6,9 @@ SETUP_INFO = dict(
     packages=['eidreader'],
     description="Read data from Belgian eId card via command-line",
     license='BSD-2-Clause',
-    author='Luc Saffre',
+    author='Rumma & Ko Ltd',
     url="https://github.com/lino-framework/eidreader",
-    author_email='luc@saffre-rumma.net')
+    author_email='info@lino-framework.org')
 
 SETUP_INFO.update(long_description="""\
 
