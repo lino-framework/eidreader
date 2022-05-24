@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from lino.sphinxcontrib import configure ; configure(globals())
 
-from atelier.sphinxconf import interproject
+from rstgen.sphinxconf import interproject
 interproject.configure(globals(), 'atelier')
 
 from eidreader.setup_info import SETUP_INFO
