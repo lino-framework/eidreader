@@ -22,21 +22,16 @@ from urllib.request import getproxies
 from requests.exceptions import ConnectionError
 # from eidreader import eid2dict
 from eidreader.setup_info import SETUP_INFO
-from PyKCS11 import PyKCS11, CKA_CLASS, CKO_DATA, CKA_LABEL, CKA_VALUE, PyKCS11Error
+from PyKCS11 import PyKCS11, CKA_CLASS, CKO_DATA, CKA_LABEL, CKA_VALUE, CKO_CERTIFICATE, PyKCS11Error
 
 SCHEMESEP = '://'
 
-images = set("""
-PHOTO_FILE
-""".split())
-# ignored:
-# DATA_FILE
-# CERT_RN_FILE
-# SIGN_DATA_FILE
-# SIGN_ADDRESS_FILE
-# ADDRESS_FILE
+#
+# Categorize all fields to be decoded respectively to their charset
+# More information: https://github.com/Fedict/eid-mw/blob/master/doc/sdk/documentation/Applet%201.8%20eID%20Cards/ID_ADRESSE_File_applet1_8_v4.pdf
+#
 
-fields = set("""
+_utf8 = set("""
 carddata_os_number
 carddata_os_version
 carddata_soft_mask_number
@@ -47,36 +42,58 @@ carddata_appl_int_version
 carddata_pkcs1_support
 carddata_key_exchange_version
 carddata_appl_lifecycle
-card_number
-validity_begin_date
-validity_end_date
 issuing_municipality
-national_number
 surname
 firstnames
 first_letter_of_third_given_name
 nationality
 location_of_birth
 date_of_birth
-gender
 nobility
+address_street_and_number
+address_zip
+address_municipality
+member_of_family
+""".split())
+
+_ascii = set("""
+card_number
+validity_begin_date
+validity_end_date
+national_number
+gender
 document_type
 special_status
 duplicata
 special_organization
-member_of_family
 date_and_country_of_protection
-address_street_and_number
-address_zip
-address_municipality
+""".split())
+
+_binary = set("""
+chip_number
+photo_hash
+basic_key_hash
+carddata_appl_version
+""".split())
+
+_blob = set("""
+DATA_FILE
+ADDRESS_FILE
+PHOTO_FILE
+CERT_RN_FILE
+SIGN_DATA_FILE
+SIGN_ADDRESS_FILE
+BASIC_KEY_FILE
+Authentication
+Signature
+CA
+Root
 """.split())
 
 # the following fields caused encoding problems, so we ignore them for
 # now:
 # carddata_serialnumber
 # carddata_comp_code
-# chip_number
-# photo_hash
 
 
 def eid2dict():
@@ -92,27 +109,28 @@ def eid2dict():
     pkcs11.load()
 
     slots = pkcs11.getSlotList()
-    
+
     data = dict(
         eidreader_version=SETUP_INFO['version'], success=False,
         message="Could not find any reader with a card inserted")
-            
-   
+
     # if len(slots) == 0:
     #     quit("No slot available")
 
     for slot in slots:
         try:
-            # sess = eid.open_session(slot)
             sess = pkcs11.openSession(slot)
         except PyKCS11Error:
             continue
             # data.update(error=str(e))
             # quit("Error: {}".format(e))
-            
+
         # print(dir(sess))
         try:
-            objs = sess.findObjects([(CKA_CLASS, CKO_DATA)])
+            # Get all data and certificate objects from Eid card
+            dataobjs = sess.findObjects([(CKA_CLASS, CKO_DATA)])
+            certobjs = sess.findObjects([(CKA_CLASS, CKO_CERTIFICATE)])
+            objs = dataobjs + certobjs
         except PyKCS11Error as e:
             data.update(message=str(e))
             break
@@ -124,16 +142,23 @@ def eid2dict():
             if len(value) == 1:
                 # value = ''.join(chr(i) for i in value[0])
                 value = bytes(value[0])
-                if label in fields:
-                    # value = value.decode('utf-8')
-                    try:
+                try:
+                    if label in _utf8:
                         value = value.decode('utf-8')
-                    except UnicodeDecodeError:
-                        print("20180414 {} : {!r}".format(label, value))
-                    data[label] = value
-                elif label in images:
-                    value = base64.b64encode(value)
-                    data[label] = value.decode('ascii')
+                        data[label] = value
+                    elif label in _ascii:
+                        value = value.decode('ascii')
+                        data[label] = value
+                    elif label in _binary:
+                        value = value.hex()
+                        data[label] = value
+                    elif label in _blob:
+                        value = base64.b64encode(value)
+                        value = value.decode('ascii')
+                        data[label] = value
+                except UnicodeDecodeError:
+                    print("20180414 {} : {!r}".format(label, value))
+
             # print("{}: {}".format(label, value))
             # d = o.to_dict()
             # print(o['CKA_LABEL'])
@@ -157,7 +182,7 @@ def main():
     parser.add_argument("-c", "--cfgfile", default=None)
     args = parser.parse_args()
     url = args.url
-    
+
     cfg_files = ["eidreader.ini", expanduser("~/eidreader.ini"),
                  join(dirname(__file__), "eidreader.ini")]
     if args.cfgfile:
@@ -174,14 +199,14 @@ def main():
         # handlers = [file_handler, stdout_handler]
 
         # logging.basicConfig(
-        #     level=logging.INFO, 
+        #     level=logging.INFO,
         #     format='[%(asctime)s] %(levelname)s - %(message)s',
         #     handlers=handlers
-        # )        
+        # )
 
     logger = logging.getLogger('eidreader')
     logger.info("Invoked as %s", ' '.join(sys.argv))
-   
+
     if url:
         proxies = getproxies()
         logger.info("getproxies() returned %s", proxies)
@@ -193,7 +218,7 @@ def main():
         if cp.has_option('eidreader', 'https_proxy'):
             proxies['https'] = cp.get('eidreader', 'https_proxy')
         logger.info("Using proxies: %s", proxies)
-        
+
         lst = url.split(SCHEMESEP, 2)
         if len(lst) == 3:
             url = lst[1] + SCHEMESEP + lst[2]
@@ -216,5 +241,6 @@ def main():
     else:
         print(json.dumps(eid2dict()))
 
-if __name__ == '__main__':    
+
+if __name__ == '__main__':
     main()
