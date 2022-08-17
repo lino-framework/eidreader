@@ -1,4 +1,4 @@
-.. _eidreader.changes: 
+.. _eidreader.changes:
 
 ====================
 Changes in eidreader
@@ -10,6 +10,10 @@ Coming version
 - eidreader should now run OOTB also on MacOS.
   Thanks to Quentin LECLER for reporting the issue and the name of the lib file:
   https://github.com/lino-framework/eidreader/issues/3
+
+- 2022-08-17 Decode using correct charset #9
+  Thanks to Bramikke (see https://github.com/lino-framework/eidreader/pull/9)
+
 
 Version 1.0.6 (2018-10-10)
 ==========================
@@ -23,7 +27,7 @@ Version 1.0.5 (2018-10-02)
 - More detailed logging.
 - Script failed when no eidreader.ini was found or when there was no
   section "eidreader" in the file.
-   
+
 Version 1.0.4 (2018-10-02)
 ==========================
 
