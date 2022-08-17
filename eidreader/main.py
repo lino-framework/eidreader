@@ -145,14 +145,17 @@ def eid2dict():
                 try:
                     if label in _utf8:
                         value = value.decode('utf-8')
+                        data[label] = value
                     elif label in _ascii:
                         value = value.decode('ascii')
+                        data[label] = value
                     elif label in _binary:
                         value = value.hex()
+                        data[label] = value
                     elif label in _blob:
                         value = base64.b64encode(value)
                         value = value.decode('ascii')
-                    data[label] = value
+                        data[label] = value
                 except UnicodeDecodeError:
                     print("20180414 {} : {!r}".format(label, value))
 
