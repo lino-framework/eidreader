@@ -97,6 +97,11 @@ Root
 
 
 def eid2dict():
+
+    data = dict(
+        eidreader_version=SETUP_INFO['version'], success=False,
+        message="Could not find any reader with a card inserted")
+    
     if 'PYKCS11LIB' not in os.environ:
         if platform.system().lower() == 'linux':
             os.environ['PYKCS11LIB'] = 'libbeidpkcs11.so.0'
@@ -106,13 +111,16 @@ def eid2dict():
             os.environ['PYKCS11LIB'] = 'beidpkcs11.dll'
 
     pkcs11 = PyKCS11.PyKCS11Lib()
-    pkcs11.load()
+    
+    try :
+        pkcs11.load()
+    except PyKCS11Error as e:
+        data.update(message="Middleware not propertly installed")
+        return data
 
     slots = pkcs11.getSlotList()
 
-    data = dict(
-        eidreader_version=SETUP_INFO['version'], success=False,
-        message="Could not find any reader with a card inserted")
+    
 
     # if len(slots) == 0:
     #     quit("No slot available")
