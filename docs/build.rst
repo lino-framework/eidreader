@@ -5,32 +5,61 @@ Build the zip file
 How to set up a build environment on a Windows machine:
 
 
-- Install Python : Go to https://www.python.org/downloads/windows/ and
-  select "Latest Python 3 Release".  Choose "Windows x86 executable
-  installer" (or -64) and run it as usual with default installation
-  options.
-  
+- Install Python : Go to https://www.python.org/downloads/windows/ and select
+  "Latest Python 3 Release".  Choose "Windows x86 executable installer" (or -64)
+  and run it as usual with default installation options. We don't recommend to
+  use pipenv because it doesn't support -e switch for install.
+
 - Install SWIG : Go to
-  http://www.swig.org/download.html
+  https://www.swig.org/download.html
   and follow the instructions.
-  
-- Microsoft Visual C++ 14.0 is required. Get it with "Microsoft Visual C++ Build Tools": http://landinghub.visualstudio.com/visual-cpp-build-tools
-  
-- pip install -e eidreader
-- pip install pyinstaller
 
-We don't recommend to use pipenv because it doesn't support -e switch
-for install.
+- Install Git. See `here <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>`__
+  or `here <https://github.com/git-guides/install-git>`__.
 
-When your build environment is set up, here is how to create a
-distribution file::
+- Microsoft Visual C++ 14.0 is required. Get it with "Microsoft Visual C++ Build
+  Tools": https://visualstudio.microsoft.com/downloads/?q=build+tools
 
-  i  
+- Get a clone of the eidreader repository. Open a terminal (:cmd:`cmd.exe`) and
+  type::
+
+    c:
+    cd \
+    git clone https://github.com/lino-framework/eidreader.git
+    cd eidreader
+    pip install -e .
+
+- Install `PyInstaller <https://pyinstaller.org/>`__. Open a terminal
+  (:cmd:`cmd.exe`) and type::
+
+    pip install pyinstaller
+
+When your build environment is set up, here is how to create a distribution
+file::
+
+  c:
+  cd \eidreader
+  git pull  # get the latest version
   pyinstaller --noconsole eidreader/scripts/eidreader
   cd dist
   python -m zipfile -c eidreader.zip eidreader
 
 .. 7z a eidreader eidreader
+
+
+How to test the packaged eidreader::
+
+  c:
+  cd \eidreader\dist
+  eidreader
+
+This should output something like::
+
+  {"eidreader_version": "1.0.6", "success": false, "message": "Could not find any reader with a card inserted"}
+
+
+
+
 
 This creates a file :file:`eidreader.zip` in your `dist` folder.
 
@@ -40,21 +69,21 @@ This creates a file :file:`eidreader.zip` in your `dist` folder.
    $ cp eidreader-1.0.3.zip ~/work/eid/docs/dl/
    $ go eid
    $ inv bd pd
- 
+
 
 
 Troubleshooting
 ===============
 
 Here is a collection of problems reported by Windows users:
-    
+
 - **error: command 'swig.exe' failed: No such file or directory**
 
   After downloading the :file:`swigwin-3.0.12.zip` file you must
   unpack it.  Did you do that?  Use your Windows Explorer to find the
   file :file:`swig.exe`.  What is the full name of the folder
   containing this file? (for example ``C:\swigwin-3.0.12``).
-  
+
   Check your :envvar:`PATH` environment variable (somewhere in your
   system settings). The valu of this variable usually contains a long
   text of style ``C:\Windows\;C:\Some\Other``.  It is a list of
