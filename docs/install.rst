@@ -121,7 +121,12 @@ How to verify whether eidreader works:
 Troubleshooter
 ==============
 
-src/dyn_unix.c:34:SYS_dyn_LoadLibrary() libbeidpkcs11.so.0: cannot open shared
-object file: No such file or directory
+"src/dyn_unix.c:34:SYS_dyn_LoadLibrary() libbeidpkcs11.so.0: cannot open shared
+object file: No such file or directory"
+
+or
+
+"LoadLibrary() failed with error 126: The specified module could not be found."
+
 --> you don't have the beid middleware installed.
 See https://eid.belgium.be/en/linux-eid-software-installation
