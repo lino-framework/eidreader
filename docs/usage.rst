@@ -2,11 +2,33 @@
 Usage
 =====
 
+>>> from atelier.sheller import Sheller
+>>> shell = Sheller()
+>>> shell("eidreader --help")  #doctest: +NORMALIZE_WHITESPACE
+usage: eidreader [-h] [-l LOGFILE] [-c CFGFILE] [url]
+<BLANKLINE>
+Read the Belgian eID card from smart card reader and either display the data to stdout or post it to a web server. Details see https://eidreader.lino-
+framework.org/usage.html
+<BLANKLINE>
+positional arguments:
+  url
+<BLANKLINE>
+options:
+  -h, --help            show this help message and exit
+  -l LOGFILE, --logfile LOGFILE
+  -c CFGFILE, --cfgfile CFGFILE
+
+
+>>> shell("eidreader")  #doctest: +NORMALIZE_WHITESPACE
+{"eidreader_version": "1.0.7", "success": false, "message": "Could not find any reader with a card inserted"}
+
+
+
 Command-line usage
 ==================
 
-eidreader itself is a command-line tool. Open a command prompt to try the
-following commands.
+eidreader is a command-line tool. Open a command prompt to try the following
+commands.
 
 - Run the :cmd:`eidreader` command with an empty card reader::
 
@@ -14,8 +36,7 @@ following commands.
     {"eidreader_version": "1.0.0", "success": false, "message": "Could not find any reader with a card inserted"}
 
 
-- Insert a Belgian eID card into your reader and run the command
-  again::
+- Insert a Belgian eID card into your reader and run the command again::
 
     $ eidreader
     {"special_status": "0", "eidreader_country": "BE",
@@ -83,7 +104,10 @@ directory as the eidreader script.  It should look something like::
     http_proxy = http://user:pass@10.10.1.10:3128
     https_proxy = https://user:pass@10.10.1.10:1080
 
+
 **Alternative invocation**
+
+The following is no longer supported after version 1.0.7.
 
 When invoking :cmd:`eidreader` from a script, you may prefer to use Python's `-m
 <https://docs.python.org/3/using/cmdline.html#command-line>`__ option::
@@ -105,9 +129,9 @@ Your web application should generate HTML code like this:
 
 .. literalinclude:: caller.html
 
-When the user clicks on that link, their browser will shortly open a
-popup window on the given URL, which will cause the custom schema
-handler to run :cmd:`eidreader`.
+When the user clicks on that link, their browser will shortly open a popup
+window on the given URL, which will cause the custom schema handler to run
+:cmd:`eidreader`.
 
 
 .. An example of such a web server is `Lino Avanti

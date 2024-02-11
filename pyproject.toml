@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = 'eidreader'
+version = '1.0.7'
+description = "Read data from Belgian eId card via command-line"
+
+# scripts = ['eidreader.py']
+
+dependencies = ['requests', 'PyKCS11']
+
+# scripts=['synodal.py']
+readme = "README.rst"
+# py_modules = ['synodal']
+
+license = {file = "COPYING"}
+authors = [
+  {name='Rumma & Ko Ltd', email="info@lino-framework.org"},
+  {name='Luc Saffre', email="luc@lino-framework.org"},
+]
+
+classifiers= [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: GNU Affero General Public License v3",
+  "Natural Language :: English",
+  "Operating System :: OS Independent"
+]
+
+[project.urls]
+Homepage = "https://eidreader.lino-framework.org"
+Repository = "https://github.com/lino-framework/eidreader"
+
+[project.scripts]
+eidreader = "eidreader:main"

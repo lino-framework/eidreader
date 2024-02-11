@@ -4,7 +4,6 @@ Build the zip file
 
 How to set up a build environment on a Windows machine:
 
-
 - Install Python : Go to https://www.python.org/downloads/windows/ and select
   "Latest Python 3 Release".  Choose "Windows x86 executable installer" (or -64)
   and run it as usual with default installation options. We don't recommend to
@@ -40,12 +39,13 @@ file::
   c:
   cd \eidreader
   git pull  # get the latest version
-  pyinstaller --noconsole eidreader/scripts/eidreader
+  pyinstaller --noconsole eidreader.py
   cd dist
   python -m zipfile -c eidreader.zip eidreader
 
 .. 7z a eidreader eidreader
 
+This creates a file :file:`eidreader.zip` in your `dist` folder.
 
 How to test the packaged eidreader::
 
@@ -55,13 +55,12 @@ How to test the packaged eidreader::
 
 This should output something like::
 
-  {"eidreader_version": "1.0.6", "success": false, "message": "Could not find any reader with a card inserted"}
+  {"eidreader_version": "1.0.7", "success": false, "message": "Could not find any reader with a card inserted"}
+
+When a Belgian ID card is inserted in your smart card reader, it should output
+more detailed information.
 
 
-
-
-
-This creates a file :file:`eidreader.zip` in your `dist` folder.
 
 .. on my machine I then finish the release by saying::
 

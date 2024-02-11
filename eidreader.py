@@ -1,10 +1,12 @@
-# Copyright 2018-2019 Rumma & Ko Ltd
-# License: BSD (see file COPYING for details)
+# Copyright 2018-2024 Rumma & Ko Ltd
+# License: GNU Affero General Public License v3 (see file COPYING for details)
+
 """
-Read the Belgian eID card from reader and display the data to
+
+Read the Belgian eID card from smart card reader and either display the data to
 stdout or post it to a web server.
 
-Details see http://eidreader.lino-framework.org/usage.html
+Details see https://eidreader.lino-framework.org/usage.html
 """
 
 import logging
@@ -21,8 +23,11 @@ import requests
 from urllib.request import getproxies
 from requests.exceptions import ConnectionError
 # from eidreader import eid2dict
-from eidreader.setup_info import SETUP_INFO
+# from eidreader.setup_info import SETUP_INFO
+import importlib.metadata
 from PyKCS11 import PyKCS11, CKA_CLASS, CKO_DATA, CKA_LABEL, CKA_VALUE, CKO_CERTIFICATE, PyKCS11Error
+
+__version__ = importlib.metadata.version("eidreader")
 
 SCHEMESEP = '://'
 
@@ -99,9 +104,9 @@ Root
 def eid2dict():
 
     data = dict(
-        eidreader_version=SETUP_INFO['version'], success=False,
+        eidreader_version=__version__, success=False,
         message="Could not find any reader with a card inserted")
-    
+
     if 'PYKCS11LIB' not in os.environ:
         if platform.system().lower() == 'linux':
             os.environ['PYKCS11LIB'] = 'libbeidpkcs11.so.0'
@@ -111,7 +116,7 @@ def eid2dict():
             os.environ['PYKCS11LIB'] = 'beidpkcs11.dll'
 
     pkcs11 = PyKCS11.PyKCS11Lib()
-    
+
     try :
         pkcs11.load()
     except PyKCS11Error as e:
@@ -120,7 +125,7 @@ def eid2dict():
 
     slots = pkcs11.getSlotList()
 
-    
+
 
     # if len(slots) == 0:
     #     quit("No slot available")

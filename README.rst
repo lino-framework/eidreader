@@ -1,8 +1,6 @@
 =========================
-The ``eidreader`` package
+The ``eidreader`` script
 =========================
-
-
 
 
 eidreader is a command-line script that reads data from Belgian eID cards and
@@ -19,7 +17,3 @@ another account).
 This script was written and is maintained by Luc Saffre <luc@saffre-rumma.net>.
 
 Thanks to Vincent Hardy (vincent.hardy.be@gmail.com)
-
-
-
-

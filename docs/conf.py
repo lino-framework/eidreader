@@ -9,14 +9,14 @@ from lino.sphinxcontrib import configure ; configure(globals())
 # release = SETUP_INFO['version']
 # version = '.'.join(release.split('.')[:2])
 
-project = "EIDReader"
-html_title = "EIDReader"
+project = "eidreader"
+html_title = "eidreader"
 import datetime
 copyright = '2018-{} Rumma & Ko Ltd'.format(datetime.date.today().year)
 # extensions += ['lino.sphinxcontrib.logo']
 
 html_context.update({
-    'display_gitlab': True,
-    'gitlab_user': 'lino-framework',
-    'gitlab_repo': 'eidreader',
+    'display_github': True,
+    'github_user': 'lino-framework',
+    'github_repo': 'eidreader',
 })

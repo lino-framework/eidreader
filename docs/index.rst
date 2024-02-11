@@ -6,12 +6,10 @@ eidreader
 
 Welcome to the *eidreader* project page.
 
-.. py2rst::
+eidreader is a small script that reads a Belgian eID card from your smart card
+reader and either displays the data to stdout or posts it to a web server.
 
-    from eidreader.setup_info import SETUP_INFO
-    print(SETUP_INFO['long_description'])
-
-
+Details see :doc:`usage`
 
 Content
 ========

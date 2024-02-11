@@ -46,7 +46,7 @@ section.
     Version=1.0
     Type=Application
     Terminal=false
-    Exec=/path/to/python -m eidreader.main -l /path/to/eidreader.log %u
+    Exec=/path/to/env/bin/eidreader -l /path/to/eidreader.log %u
     Name=eidreader
     Comment=Run eidreader
     Icon=
@@ -61,7 +61,7 @@ then create an executable  :file:`beid.sh`::
     LOGFILE=/home/joe/bin/beid.log
     date > $LOGFILE
     echo eidreader $* >> $LOGFILE
-    /home/joe/virtualenvs/py3/bin/python -m eidreader.main -l $LOGFILE $* 2>> $LOGFILE
+    /home/joe/virtualenvs/py3/bin/eidreader -l $LOGFILE $* 2>> $LOGFILE
 
 
 Install eidreader on Windows
