@@ -148,4 +148,4 @@ In a Windows network with several clients and a shared network drive
 drive and then run :cmd:`eidreader` from any client using something
 like this::
 
-  F:\Python\python.exe -m eidreader.main
+  F:\Python\bin\eidreader.exe
