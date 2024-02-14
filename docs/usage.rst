@@ -2,27 +2,6 @@
 Usage
 =====
 
->>> from atelier.sheller import Sheller
->>> shell = Sheller()
->>> shell("eidreader --help")  #doctest: +NORMALIZE_WHITESPACE
-usage: eidreader [-h] [-l LOGFILE] [-c CFGFILE] [url]
-<BLANKLINE>
-Read the Belgian eID card from smart card reader and either display the data to stdout or post it to a web server. Details see https://eidreader.lino-
-framework.org/usage.html
-<BLANKLINE>
-positional arguments:
-  url
-<BLANKLINE>
-options:
-  -h, --help            show this help message and exit
-  -l LOGFILE, --logfile LOGFILE
-  -c CFGFILE, --cfgfile CFGFILE
-
-
->>> shell("eidreader")  #doctest: +NORMALIZE_WHITESPACE
-{"eidreader_version": "1.0.7", "success": false, "message": "Could not find any reader with a card inserted"}
-
-
 
 Command-line usage
 ==================
@@ -70,6 +49,8 @@ handler definition.
 
 -l, --logfile
 
+    Log activity to the specified log file.
+
 -c, --cfgfile
 
     Load the specified config file before looking at the standard
@@ -87,7 +68,19 @@ If the proxy requires authentication, you need to specify them in the
 URL (either in the envvar or in the config file) using the
 ``user:pass@`` syntax.
 
-**Config file**
+**Alternative invocation**
+
+The following alternative invocation is no longer supported after version 1.0.7.
+
+When invoking :cmd:`eidreader` from a script, you may prefer to use Python's `-m
+<https://docs.python.org/3/using/cmdline.html#command-line>`__ option::
+
+  $ pythonw -m eidreader.main
+
+
+
+Config file
+===========
 
 eidreader also looks for a file `eidreader.ini` and reads two settings
 `http_proxy` and `https_proxy` from it.  This is just another way to
@@ -105,14 +98,13 @@ directory as the eidreader script.  It should look something like::
     https_proxy = https://user:pass@10.10.1.10:1080
 
 
-**Alternative invocation**
+Environment variable
+====================
 
-The following is no longer supported after version 1.0.7.
+.. envvar:: PYKCS11LIB
 
-When invoking :cmd:`eidreader` from a script, you may prefer to use Python's `-m
-<https://docs.python.org/3/using/cmdline.html#command-line>`__ option::
+  The name of the PyKCS11 library to load.
 
-  $ pythonw -m eidreader.main
 
 
 
@@ -149,3 +141,34 @@ drive and then run :cmd:`eidreader` from any client using something
 like this::
 
   F:\Python\bin\eidreader.exe
+
+
+Don't read
+==========
+
+
+..
+  NB The following snippet needs an ellipsis because the text "Details see
+  https://eidreader.lino-framework.org/usage.html" sometimes gets wrapped at the
+  dash in the link, which causes NORMALIZE_WHITESPACE to not "work as expected"
+
+>>> from atelier.sheller import Sheller
+>>> shell = Sheller()
+>>> shell("eidreader --help")  #doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
+usage: eidreader [-h] [-l LOGFILE] [-c CFGFILE] [url]
+<BLANKLINE>
+Read the Belgian eID card from smart card reader and either display the data
+to stdout or post it to a web server.
+Details see https://.../usage.html
+<BLANKLINE>
+positional arguments:
+  url
+<BLANKLINE>
+options:
+  -h, --help            show this help message and exit
+  -l LOGFILE, --logfile LOGFILE
+  -c CFGFILE, --cfgfile CFGFILE
+
+
+>>> shell("eidreader")  #doctest: +NORMALIZE_WHITESPACE
+{"eidreader_version": "1.0.7", "success": false, "message": "Could not find any reader with a card inserted"}
