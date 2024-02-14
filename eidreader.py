@@ -1,6 +1,5 @@
 # Copyright 2018-2024 Rumma & Ko Ltd
 # License: GNU Affero General Public License v3 (see file COPYING for details)
-
 """
 
 Read the Belgian eID card from smart card reader and either display the data to
@@ -103,9 +102,9 @@ Root
 
 def eid2dict():
 
-    data = dict(
-        eidreader_version=__version__, success=False,
-        message="Could not find any reader with a card inserted")
+    data = dict(eidreader_version=__version__,
+                success=False,
+                message="Could not find any reader with a card inserted")
 
     if 'PYKCS11LIB' not in os.environ:
         if platform.system().lower() == 'linux':
@@ -117,15 +116,13 @@ def eid2dict():
 
     pkcs11 = PyKCS11.PyKCS11Lib()
 
-    try :
+    try:
         pkcs11.load()
     except PyKCS11Error as e:
         data.update(message="Middleware not propertly installed")
         return data
 
     slots = pkcs11.getSlotList()
-
-
 
     # if len(slots) == 0:
     #     quit("No slot available")
@@ -196,12 +193,16 @@ def main():
     args = parser.parse_args()
     url = args.url
 
-    cfg_files = ["eidreader.ini", expanduser("~/eidreader.ini"),
-                 join(dirname(__file__), "eidreader.ini")]
+    cfg_files = [
+        "eidreader.ini",
+        expanduser("~/eidreader.ini"),
+        join(dirname(__file__), "eidreader.ini")
+    ]
     if args.cfgfile:
         cfg_files = [args.cfgfile]
     if args.logfile:
-        logging.basicConfig(filename=args.logfile, level=logging.INFO,
+        logging.basicConfig(filename=args.logfile,
+                            level=logging.INFO,
                             format='[%(asctime)s] %(levelname)s %(message)s')
         # stderrLogger = logging.StreamHandler()
         # stderrLogger.setFormatter(logging.Formatter(logging.BASIC_FORMAT))

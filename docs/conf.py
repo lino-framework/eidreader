@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-from atelier.sphinxconf import configure ; configure(globals())
-from lino.sphinxcontrib import configure ; configure(globals())
+from atelier.sphinxconf import configure
+
+configure(globals())
+from lino.sphinxcontrib import configure
+
+configure(globals())
 
 # from rstgen.sphinxconf import interproject
 # interproject.configure(globals(), 'atelier')
@@ -12,6 +16,7 @@ from lino.sphinxcontrib import configure ; configure(globals())
 project = "eidreader"
 html_title = "eidreader"
 import datetime
+
 copyright = '2018-{} Rumma & Ko Ltd'.format(datetime.date.today().year)
 # extensions += ['lino.sphinxcontrib.logo']
 
