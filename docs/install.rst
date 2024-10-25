@@ -19,6 +19,9 @@ Install eidreader on Linux
 Instructions for Linux users.  Windows users please skip to the next
 section.
 
+#. To actually run eidreader, you will need to install the Belgian eID
+   middleware from https://eid.belgium.be/en
+
 #. Install the eidreader script itself::
 
       $ sudo apt install python3 swig
@@ -101,9 +104,6 @@ Test whether it worked
 ======================
 
 How to verify whether eidreader works:
-
-#. To actually run eidreader, you need to install the Belgian eID
-   middleware from https://eid.belgium.be/en
 
 #. Point your browser to https://weleup1.mylino.net/, and
    sign in as robin (or romain or rolf depending on your preferred

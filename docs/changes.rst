@@ -4,8 +4,21 @@
 Changes in eidreader
 ====================
 
-Coming version
-==============
+Version 1.0.8 (2024-10-25)
+==========================
+
+- eidreader now unquotes the specified URL, so your client can quote the URL in
+  order to work around work around `#13
+  <https://github.com/lino-framework/eidreader/issues/13>`__ (Chrome  M130 and
+  later  `refuse to process
+  <https://docs.google.com/document/d/1LjxHl32fE4tCKugrK_PIso7mfXQVEeoD1wSnX2y0ZU8/edit?resourcekey=0-d1gP4X2sG7GPl9mlTeptIA&tab=t.0#heading=h.a67ulu2yrl9p>`__
+  custom URLs that contain two occurences of '//:')
+
+- Added a command-line option ``--dryrun`` to make doctests more easy.
+
+
+Version 1.0.7 (2024-02-11)
+==========================
 
 - eidreader should now run OOTB also on MacOS.
   Thanks to Quentin LECLER for reporting the issue and the name of the lib file:

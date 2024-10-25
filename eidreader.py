@@ -20,6 +20,7 @@ import json
 import configparser
 import requests
 from urllib.request import getproxies
+from urllib.parse import unquote
 from requests.exceptions import ConnectionError
 # from eidreader import eid2dict
 # from eidreader.setup_info import SETUP_INFO
@@ -187,9 +188,10 @@ def eid2dict():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("url", default=None, nargs='?')
-    parser.add_argument("-l", "--logfile", default=None)
-    parser.add_argument("-c", "--cfgfile", default=None)
+    parser.add_argument("url", default=None, nargs='?', help="Where to POST data to.")
+    parser.add_argument("-l", "--logfile", default=None, help="Log activity to the specified file.")
+    parser.add_argument("-c", "--cfgfile", default=None, help="Read additional config from the specified file.")
+    parser.add_argument("-d", "--dryrun", action='store_true', help="Don't actually do anything.")
     args = parser.parse_args()
     url = args.url
 
@@ -217,9 +219,22 @@ def main():
         #     format='[%(asctime)s] %(levelname)s - %(message)s',
         #     handlers=handlers
         # )
+    elif args.dryrun:
+        logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     logger = logging.getLogger('eidreader')
     logger.info("Invoked as %s", ' '.join(sys.argv))
+
+    if args.dryrun:
+        data = dict(eidreader_version=__version__,
+                    success=False,
+                    message="Dry run, didn't try to read card data.")
+    else:
+        logger.info("Reading data...")
+        data = eid2dict()
+
+    data = json.dumps(data)
+    logger.info("Got data %s", data)
 
     if url:
         proxies = getproxies()
@@ -233,6 +248,7 @@ def main():
             proxies['https'] = cp.get('eidreader', 'https_proxy')
         logger.info("Using proxies: %s", proxies)
 
+        url = unquote(url)
         lst = url.split(SCHEMESEP, 2)
         if len(lst) == 3:
             url = lst[1] + SCHEMESEP + lst[2]
@@ -242,18 +258,19 @@ def main():
         else:
             quit("Invalid URL {}".format(url))
 
-        logger.info("Reading data...")
-        # data = eid2dict()  20180521 fix 2393
-        data = dict(card_data=json.dumps(eid2dict()))
-        logger.info("Got data %s", data)
+        if args.dryrun:
+            logger.info("Would POST data to %s", url)
+            return
+
         logger.info("POST data to %s", url)
+        data = dict(card_data=data)
         try:
             r = requests.post(url, data=data, proxies=proxies)
             logger.info("POST returned {}".format(r))
         except ConnectionError as e:
             logger.info("ConnectionError %s", e)
     else:
-        print(json.dumps(eid2dict()))
+        print(data)
 
 
 if __name__ == '__main__':

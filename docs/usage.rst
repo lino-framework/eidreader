@@ -155,20 +155,39 @@ Don't read
 >>> from atelier.sheller import Sheller
 >>> shell = Sheller()
 >>> shell("eidreader --help")  #doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
-usage: eidreader [-h] [-l LOGFILE] [-c CFGFILE] [url]
+usage: eidreader [-h] [-l LOGFILE] [-c CFGFILE] [-d] [url]
 <BLANKLINE>
-Read the Belgian eID card from smart card reader and either display the data
-to stdout or post it to a web server.
-Details see https://.../usage.html
+Read the Belgian eID card from smart card reader and either display the data to stdout or post it to a web server. Details see https://eidreader.lino-framework.org/usage.html
 <BLANKLINE>
 positional arguments:
-  url
+  url                   Where to POST data to.
 <BLANKLINE>
 options:
   -h, --help            show this help message and exit
   -l LOGFILE, --logfile LOGFILE
+                        Log activity to the specified file.
   -c CFGFILE, --cfgfile CFGFILE
-
+                        Read additional config from the specified file.
+  -d, --dryrun          Don't actually do anything.
 
 >>> shell("eidreader")  #doctest: +NORMALIZE_WHITESPACE
-{"eidreader_version": "1.0.7", "success": false, "message": "Could not find any reader with a card inserted"}
+{"eidreader_version": "1.0.8", "success": false, "message": "Could not find any reader with a card inserted"}
+
+>>> shell("eidreader -d beid://https//xxxxxx.xxxx/receivedata.php?id=123456")  #doctest: +ELLIPSIS
+Invoked as .../eidreader -d beid://https//xxxxxx.xxxx/receivedata.php?id=123456
+Got data {"eidreader_version": "1.0.8", "success": false, "message": "Dry run, didn't try to read card data."}
+getproxies() returned {}
+Load config from ['eidreader.ini', ...]
+Using proxies: {}
+Would POST data to beid://https//xxxxxx.xxxx/receivedata.php?id=123456
+
+Version 1.0.8 unquotes the specified URL in order to work around `#13
+<https://github.com/lino-framework/eidreader/issues/13>`__:
+
+>>> shell("eidreader -d beid%3A//https//xxxxxx.xxxx/receivedata.php%3Fid%3D123456%26date%3D2024-10-24")  #doctest: +ELLIPSIS
+Invoked as .../eidreader -d beid%3A//https//xxxxxx.xxxx/receivedata.php%3Fid%3D123456%26date%3D2024-10-24
+Got data {"eidreader_version": "1.0.8", "success": false, "message": "Dry run, didn't try to read card data."}
+getproxies() returned {}
+Load config from ['eidreader.ini', ...]
+Using proxies: {}
+Would POST data to beid://https//xxxxxx.xxxx/receivedata.php?id=123456&date=2024-10-24
