@@ -24,10 +24,10 @@ from urllib.parse import unquote
 from requests.exceptions import ConnectionError
 # from eidreader import eid2dict
 # from eidreader.setup_info import SETUP_INFO
-import importlib.metadata
+# import importlib.metadata
 from PyKCS11 import PyKCS11, CKA_CLASS, CKO_DATA, CKA_LABEL, CKA_VALUE, CKO_CERTIFICATE, PyKCS11Error
 
-__version__ = importlib.metadata.version("eidreader")
+__version__ = "1.0.8"
 
 SCHEMESEP = '://'
 
@@ -120,7 +120,7 @@ def eid2dict():
     try:
         pkcs11.load()
     except PyKCS11Error as e:
-        data.update(message="Middleware not propertly installed")
+        data.update(message="Middleware not properly installed")
         return data
 
     slots = pkcs11.getSlotList()

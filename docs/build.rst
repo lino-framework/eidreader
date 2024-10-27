@@ -55,10 +55,14 @@ How to test the packaged eidreader::
 
 This should output something like::
 
-  {"eidreader_version": "1.0.7", "success": false, "message": "Could not find any reader with a card inserted"}
+  {"eidreader_version": "1.0.8", "success": false, "message": "Could not find any reader with a card inserted"}
+
+Or (if your middleware isn't installed) ::
+  
+  {"eidreader_version": "1.0.8", "success": false, "message": "Middleware not properly installed"}
 
 When a Belgian ID card is inserted in your smart card reader, it should output
-more detailed information.
+the information found on the card.
 
 
 

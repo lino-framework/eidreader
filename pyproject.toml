@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = 'eidreader'
-version = '1.0.8'
+dynamic = ["version"]
 description = "Read data from Belgian eId card via command-line"
 
 # scripts = ['eidreader.py']
@@ -37,3 +37,6 @@ Repository = "https://github.com/lino-framework/eidreader"
 
 [project.scripts]
 eidreader = "eidreader:main"
+
+[tool.hatch.version]
+path = "eidreader.py"

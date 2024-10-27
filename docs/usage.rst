@@ -157,7 +157,9 @@ Don't read
 >>> shell("eidreader --help")  #doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
 usage: eidreader [-h] [-l LOGFILE] [-c CFGFILE] [-d] [url]
 <BLANKLINE>
-Read the Belgian eID card from smart card reader and either display the data to stdout or post it to a web server. Details see https://eidreader.lino-framework.org/usage.html
+Read the Belgian eID card from smart card reader and either display the data to
+stdout or post it to a web server.
+Details see https://.../usage.html
 <BLANKLINE>
 positional arguments:
   url                   Where to POST data to.
