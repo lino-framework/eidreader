@@ -155,7 +155,7 @@ or
 
 "LoadLibrary() failed with error 126: The specified module could not be found."
 
---> you don't have the beid middleware installed.
+⟶ you don't have the beid middleware installed.
 See https://eid.belgium.be/en/how-install-eid-software
 
 
