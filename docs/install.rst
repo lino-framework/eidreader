@@ -117,17 +117,4 @@ How to verify whether eidreader works:
    delete that client if you don't want others to see the stored
    information.
 
-
-
-Troubleshooter
-==============
-
-"src/dyn_unix.c:34:SYS_dyn_LoadLibrary() libbeidpkcs11.so.0: cannot open shared
-object file: No such file or directory"
-
-or
-
-"LoadLibrary() failed with error 126: The specified module could not be found."
-
---> you don't have the beid middleware installed.
-See https://eid.belgium.be/en/how-install-eid-software
+#. See :doc:`usage`

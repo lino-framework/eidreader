@@ -103,7 +103,9 @@ Environment variable
 
 .. envvar:: PYKCS11LIB
 
-  The name of the PyKCS11 library to load.
+  The name of the PyKCS11 library to load. You usually don't need to set it
+  because the script then uses a standard name (which depends on your operating
+  system).
 
 
 
@@ -141,6 +143,20 @@ drive and then run :cmd:`eidreader` from any client using something
 like this::
 
   F:\Python\bin\eidreader.exe
+
+
+Troubleshooter
+==============
+
+"src/dyn_unix.c:34:SYS_dyn_LoadLibrary() libbeidpkcs11.so.0: cannot open shared
+object file: No such file or directory"
+
+or
+
+"LoadLibrary() failed with error 126: The specified module could not be found."
+
+--> you don't have the beid middleware installed.
+See https://eid.belgium.be/en/how-install-eid-software
 
 
 Don't read
