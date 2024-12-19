@@ -256,7 +256,7 @@ def main():
             pass
             # url = lst[1]
         else:
-            quit("Invalid URL {}".format(url))
+            exit("Invalid URL {}".format(url))
 
         if args.dryrun:
             logger.info("Would POST data to %s", url)
