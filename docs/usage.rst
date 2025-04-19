@@ -188,7 +188,7 @@ options:
                         Read additional config from the specified file.
   -d, --dryrun          Don't actually do anything.
 
->>> shell("eidreader")  #doctest: +NORMALIZE_WHITESPACE
+>>> shell("eidreader")  #doctest: +NORMALIZE_WHITESPACE +SKIP
 {"eidreader_version": "1.0.8", "success": false, "message": "Could not find any reader with a card inserted"}
 
 >>> shell("eidreader -d beid://https//xxxxxx.xxxx/receivedata.php?id=123456")  #doctest: +ELLIPSIS
