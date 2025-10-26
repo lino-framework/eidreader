@@ -106,7 +106,7 @@ Test whether it worked
 
 How to verify whether eidreader works:
 
-#. Point your browser to https://weleup1.mylino.net/, and
+#. Point your browser to https://welcht1.mylino.net/, and
    sign in as robin (or romain or rolf depending on your preferred
    language) and click on the :guilabel:`[Read eID card]` quicklink in
    the main screen.  When asked whether to give the site permission to open
