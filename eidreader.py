@@ -101,7 +101,7 @@ Root
 # carddata_comp_code
 
 
-def eid2dict():
+def eid2dict(logger):
 
     data = dict(eidreader_version=__version__,
                 success=False,
@@ -120,9 +120,10 @@ def eid2dict():
     try:
         pkcs11.load()
     except PyKCS11Error as e:
-        data.update(message="Middleware not properly installed")
+        data.update(message=f"Middleware not properly installed ({e})")
         return data
 
+    logger.debug("Using PKCS library %s", pkcs11.getInfo())
     slots = pkcs11.getSlotList()
 
     # if len(slots) == 0:
@@ -137,20 +138,27 @@ def eid2dict():
             # quit("Error: {}".format(e))
 
         # print(dir(sess))
+        logger.debug("Opened session %s on %s", sess, slot)
         try:
-            # Get all data and certificate objects from Eid card
-            dataobjs = sess.findObjects([(CKA_CLASS, CKO_DATA)])
-            certobjs = sess.findObjects([(CKA_CLASS, CKO_CERTIFICATE)])
-            objs = dataobjs + certobjs
+            # Get all data and certificate objects from eID card
+            if True:
+                dataobjs = sess.findObjects([(CKA_CLASS, CKO_DATA)])
+                certobjs = sess.findObjects([(CKA_CLASS, CKO_CERTIFICATE)])
+                objs = dataobjs + certobjs
+            else:  # temporarily for debugging
+                objs = sess.findObjects()
+                print(f"20260401 {objs}")
         except PyKCS11Error as e:
+            logger.exception(e)
+            # raise  # temporarily for debugging
             data.update(message=str(e))
             break
             # print(len(objs))
         # print(type(objs[0]), dir( objs[0]), objs[0].to_dict())
         for o in objs:
-            label = sess.getAttributeValue(o, [CKA_LABEL])[0]
             value = sess.getAttributeValue(o, [CKA_VALUE])
             if len(value) == 1:
+                label = sess.getAttributeValue(o, [CKA_LABEL])[0]
                 # value = ''.join(chr(i) for i in value[0])
                 value = bytes(value[0])
                 try:
@@ -167,8 +175,13 @@ def eid2dict():
                         value = base64.b64encode(value)
                         value = value.decode('ascii')
                         data[label] = value
+                    else:
+                        logger.debug("Unknown label %r", label)
+                        data[label] = value
                 except UnicodeDecodeError:
-                    print("20180414 {} : {!r}".format(label, value))
+                    logger.debug("Cannot decode %r in %s", value, label)
+            else:
+                logger.debug("Unexpected value %r in %s", value, o)
 
             # print("{}: {}".format(label, value))
             # d = o.to_dict()
@@ -188,10 +201,16 @@ def eid2dict():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("url", default=None, nargs='?', help="Where to POST data to.")
-    parser.add_argument("-l", "--logfile", default=None, help="Log activity to the specified file.")
-    parser.add_argument("-c", "--cfgfile", default=None, help="Read additional config from the specified file.")
-    parser.add_argument("-d", "--dryrun", action='store_true', help="Don't actually do anything.")
+    parser.add_argument("url", default=None, nargs='?',
+                        help="Where to POST data to.")
+    parser.add_argument("-l", "--logfile", default=None,
+                        help="Log activity to the specified file.")
+    parser.add_argument("-c", "--cfgfile", default=None,
+                        help="Read additional config from the specified file.")
+    parser.add_argument("-d", "--dryrun", action='store_true',
+                        help="Don't actually do anything.")
+    parser.add_argument("-v", "--verbose", action='store_true',
+                        help="Report verbosely about what's going on.")
     args = parser.parse_args()
     url = args.url
 
@@ -202,9 +221,13 @@ def main():
     ]
     if args.cfgfile:
         cfg_files = [args.cfgfile]
+    if args.verbose or args.dryrun:
+        loglevel = logging.DEBUG
+    else:
+        loglevel = logging.INFO
     if args.logfile:
         logging.basicConfig(filename=args.logfile,
-                            level=logging.INFO,
+                            level=loglevel,
                             format='[%(asctime)s] %(levelname)s %(message)s')
         # stderrLogger = logging.StreamHandler()
         # stderrLogger.setFormatter(logging.Formatter(logging.BASIC_FORMAT))
@@ -219,34 +242,34 @@ def main():
         #     format='[%(asctime)s] %(levelname)s - %(message)s',
         #     handlers=handlers
         # )
-    elif args.dryrun:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+    else:
+        logging.basicConfig(level=loglevel, format='%(message)s')
 
     logger = logging.getLogger('eidreader')
-    logger.info("Invoked as %s", ' '.join(sys.argv))
+    logger.debug("Invoked as %s", ' '.join(sys.argv))
 
     if args.dryrun:
         data = dict(eidreader_version=__version__,
                     success=False,
                     message="Dry run, didn't try to read card data.")
     else:
-        logger.info("Reading data...")
-        data = eid2dict()
+        logger.debug("Reading data...")
+        data = eid2dict(logger)
 
     data = json.dumps(data)
-    logger.info("Got data %s", data)
+    logger.debug("Got data %s", data)
 
     if url:
         proxies = getproxies()
-        logger.info("getproxies() returned %s", proxies)
+        logger.debug("getproxies() returned %s", proxies)
         cp = configparser.ConfigParser()
-        logger.info("Load config from %s", cfg_files)
+        logger.debug("Load config from %s", cfg_files)
         cp.read(cfg_files)
         if cp.has_option('eidreader', 'http_proxy'):
             proxies['http'] = cp.get('eidreader', 'http_proxy')
         if cp.has_option('eidreader', 'https_proxy'):
             proxies['https'] = cp.get('eidreader', 'https_proxy')
-        logger.info("Using proxies: %s", proxies)
+        logger.debug("Using proxies: %s", proxies)
 
         url = unquote(url)
         lst = url.split(SCHEMESEP, 2)
@@ -256,19 +279,19 @@ def main():
             pass
             # url = lst[1]
         else:
-            exit("Invalid URL {}".format(url))
+            exit(f"Invalid URL {url}")
 
         if args.dryrun:
-            logger.info("Would POST data to %s", url)
+            logger.debug("Would POST data to %s", url)
             return
 
-        logger.info("POST data to %s", url)
+        logger.debug("POST data to %s", url)
         data = dict(card_data=data)
         try:
             r = requests.post(url, data=data, proxies=proxies)
-            logger.info("POST returned {}".format(r))
+            logger.debug("POST returned {}".format(r))
         except ConnectionError as e:
-            logger.info("ConnectionError %s", e)
+            logger.debug("ConnectionError %s", e)
     else:
         print(data)
 

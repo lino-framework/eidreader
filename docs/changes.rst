@@ -4,6 +4,11 @@
 Changes in eidreader
 ====================
 
+2026-04-01
+==========================
+
+- New command-line option ``--verbose`` to improve diagnostics in case of troubles.
+
 Version 1.0.8 (2024-10-25)
 ==========================
 

@@ -171,7 +171,7 @@ Don't read
 >>> from atelier.sheller import Sheller
 >>> shell = Sheller()
 >>> shell("eidreader --help")  #doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
-usage: eidreader [-h] [-l LOGFILE] [-c CFGFILE] [-d] [url]
+usage: eidreader [-h] [-l LOGFILE] [-c CFGFILE] [-d] [-v] [url]
 <BLANKLINE>
 Read the Belgian eID card from smart card reader and either display the data to
 stdout or post it to a web server.
@@ -187,6 +187,7 @@ options:
   -c CFGFILE, --cfgfile CFGFILE
                         Read additional config from the specified file.
   -d, --dryrun          Don't actually do anything.
+  -v, --verbose         Report verbosely about what's going on.
 
 >>> shell("eidreader")  #doctest: +NORMALIZE_WHITESPACE +SKIP
 {"eidreader_version": "1.0.8", "success": false, "message": "Could not find any reader with a card inserted"}
