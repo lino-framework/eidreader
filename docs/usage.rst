@@ -182,9 +182,9 @@ positional arguments:
 <BLANKLINE>
 options:
   -h, --help            show this help message and exit
-  -l LOGFILE, --logfile LOGFILE
+  -l, --logfile LOGFILE
                         Log activity to the specified file.
-  -c CFGFILE, --cfgfile CFGFILE
+  -c, --cfgfile CFGFILE
                         Read additional config from the specified file.
   -d, --dryrun          Don't actually do anything.
   -v, --verbose         Report verbosely about what's going on.
