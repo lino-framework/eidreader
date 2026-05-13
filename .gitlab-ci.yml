@@ -1,0 +1,36 @@
+# Official language image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/python/tags/
+image: python:3.12
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  DEBIAN_FRONTEND: noninteractive
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  TERM: linux
+  PYTHONUNBUFFERED: 1
+  LC_ALL: en_GB.UTF-8
+  LANG: en_GB.UTF-8
+  TZ: Europe/Brussels
+
+before_script:
+  - uname -a
+  - apt-get update
+  - apt-get -y upgrade
+  - apt-get install -y tzdata locales-all
+  - python -V  # Print out python version for debugging
+  - pip install -e ".[testing]"
+
+test:
+  script:
+    - inv prep test
+
+pages:
+  script:
+    - inv bd
+    - mv docs/.build/ public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
