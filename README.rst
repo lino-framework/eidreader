@@ -2,6 +2,7 @@
 The ``eidreader`` script
 =========================
 
+The eidreader project moved from GitHub to GitLab and is now hosted at https://gitlab.com/synodalsoft/eid
 
 eidreader is a command-line script that reads data from Belgian eID cards and
 writes the data to stdout or posts it to a web server. It is designed to be used
