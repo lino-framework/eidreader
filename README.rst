@@ -14,7 +14,7 @@ another account).
 
 - Documentation: https://eidreader.lino-framework.org
 - How to install: https://eidreader.lino-framework.org/install.html
-- Please report issues to https://github.com/lino-framework/eidreader/issues
+- Please report issues to https://gitlab.com/synodalsoft/eid/-/work_items
 
 This script was written and is maintained by Luc Saffre <luc@saffre-rumma.net>.
 
